@@ -1,0 +1,386 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<groupId>com</groupId>
+<artifactId>Qcash</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+<name>Qcash</name>
+<description>Qcash Automation</description>  
+
+<properties>
+<suiteXml>src/test/resources/Suite.xml</suiteXml>
+</properties>
+
+<build>
+<sourceDirectory>src/main/java</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+<plugins>
+	<plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+                <execution>
+                    <id>auto-clean</id>
+                    <phase>initialize</phase>
+                    <goals>
+                        <goal>clean</goal>
+                    </goals>
+                    <configuration>
+                        <filesets>
+                            <fileset>
+                                <directory>${basedir}/outputfiles</directory>
+                                <includes>**/*</includes>
+								<excludes>.gitignore</excludes>
+                            </fileset>
+                            <fileset>
+                                <directory>${basedir}/reports</directory>
+                                <includes>**/*</includes>
+								<excludes>.gitignore</excludes>
+                            </fileset>
+                            <fileset>
+                                <directory>${basedir}/screenshots</directory>
+                                <includes>**/*</includes>
+								<excludes>.gitignore</excludes>
+                            </fileset>
+                        </filesets>
+                    </configuration>
+                </execution>
+            </executions>
+	</plugin>
+	
+	<plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+	</plugin>
+	
+	
+	<plugin>
+	<groupId>org.codehaus.mojo</groupId>  
+	<artifactId>exec-maven-plugin</artifactId>  
+	<version>1.5.0</version>  
+		<executions>  
+			<execution>
+			<id>zip</id>
+				<phase>test</phase>  
+				<goals>  
+					<goal>java</goal>  
+				</goals>  
+				<configuration>
+					<mainClass>com.qcash.utilities.Zip</mainClass>
+					<cleanupDaemonThreads>false</cleanupDaemonThreads>
+				</configuration>  
+			</execution>
+			<execution>
+			<id>mail</id>
+				<phase>test</phase>
+				<goals>
+					<goal>java</goal>
+				</goals>  
+				<configuration>
+					<mainClass>com.qcash.reporter.ssl_gmail</mainClass>
+					<cleanupDaemonThreads>false</cleanupDaemonThreads>
+				</configuration>  
+			</execution> 
+		</executions>  
+	</plugin>
+	
+    <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-surefire-plugin</artifactId>
+		<version>2.18.1</version>
+			<configuration>
+				<suiteXmlFiles>
+					<suiteXmlFile>src/test/resources/Suite.xml</suiteXmlFile>
+				</suiteXmlFiles>
+				<testFailureIgnore>true</testFailureIgnore> 
+			</configuration>
+	</plugin>
+	
+	<plugin>
+				<groupId>net.masterthought</groupId>
+				<artifactId>maven-cucumber-reporting</artifactId>
+				<version>3.15.0</version>
+				<executions>
+					<execution>
+						<id>execution</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<projectName>Qcash</projectName>  <!-- Replace with project name -->
+							<outputDirectory>target/cucumber-reports/advanced-reports</outputDirectory>
+							<cucumberOutput>target/cucumber-reports/Cucumber.json</cucumberOutput>
+							<buildNumber>1</buildNumber>
+							<parallelTesting>false</parallelTesting>
+							<skip>false</skip>
+							<inputDirectory>${project.build.directory}/cucumber-reports</inputDirectory>
+							<jsonFiles>
+							<param>**/*.json</param>
+							</jsonFiles>
+							<classificationDirectory>${project.build.directory}/cucumber-reports</classificationDirectory>
+							<checkBuildResult>false</checkBuildResult>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+	
+</plugins>
+
+<pluginManagement>
+		<plugins>
+			<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+			<plugin>
+				<groupId>org.eclipse.m2e</groupId>
+				<artifactId>lifecycle-mapping</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<lifecycleMappingMetadata>
+						<pluginExecutions>
+							<pluginExecution>
+								<pluginExecutionFilter>
+									<groupId>
+										org.apache.maven.plugins
+									</groupId>
+									<artifactId>
+										maven-clean-plugin
+									</artifactId>
+									<versionRange>
+										[3.0.0,)
+									</versionRange>
+									<goals>
+										<goal>clean</goal>
+									</goals>
+								</pluginExecutionFilter>
+								<action>
+									<ignore></ignore>
+								</action>
+							</pluginExecution>
+							<pluginExecution>
+								<pluginExecutionFilter>
+									<groupId></groupId>
+									<artifactId></artifactId>
+									<versionRange>[,)</versionRange>
+									<goals>
+										<goal></goal>
+									</goals>
+								</pluginExecutionFilter>
+								<action>
+									<ignore></ignore>
+								</action>
+							</pluginExecution>
+						</pluginExecutions>
+					</lifecycleMappingMetadata>
+				</configuration>
+			</plugin>
+		</plugins>
+	</pluginManagement>
+</build>
+
+    <dependencies>
+	
+	<dependency>
+		<groupId>org.testng</groupId>
+		<artifactId>testng</artifactId>
+		<version>6.10</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi</artifactId>
+		<version>3.15</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-ooxml</artifactId>
+		<version>3.15</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-scratchpad</artifactId>
+		<version>3.15</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-excelant</artifactId>
+		<version>3.15</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.seleniumhq.selenium</groupId>
+		<artifactId>selenium-java</artifactId>
+		<version>3.6.0</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+<dependency>
+    <groupId>io.github.bonigarcia</groupId>
+    <artifactId>webdrivermanager</artifactId>
+    <version>5.5.0</version>
+</dependency>
+	
+		
+		<dependency>
+			<groupId>net.masterthought</groupId>
+			<artifactId>cucumber-reporting</artifactId>
+			<version>3.8.0</version>
+		</dependency>
+	
+	<dependency>
+		<groupId>org.freemarker</groupId>
+		<artifactId>freemarker</artifactId>
+		<version>2.3.23</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+<dependency>
+    <groupId>com.aventstack</groupId>
+    <artifactId>extentreports</artifactId>
+    <version>4.0.9</version>
+</dependency>
+ 
+	<dependency>
+        <groupId>com.sun.mail</groupId>
+        <artifactId>javax.mail</artifactId>
+        <version>1.6.2</version>
+    </dependency>
+	
+	
+       
+ 
+	
+	<dependency>
+		<groupId>org.apache.logging.log4j</groupId>
+		<artifactId>log4j-api</artifactId>
+		<version>2.7</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.apache.logging.log4j</groupId>
+		<artifactId>log4j-core</artifactId>
+		<version>2.7</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.seleniumhq.selenium</groupId>
+		<artifactId>htmlunit-driver</artifactId>
+		<version>2.23.2</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-clean-plugin</artifactId>
+		<version>3.0.0</version>
+		<type>maven-plugin</type>
+	</dependency>
+
+	<dependency>
+		<groupId>com.microsoft.sqlserver</groupId>
+		<artifactId>mssql-jdbc</artifactId>
+		<version>6.1.0.jre8</version>
+	</dependency>
+	
+	<dependency>
+    	<groupId>com.assertthat</groupId>
+    	<artifactId>selenium-shutterbug</artifactId>
+    	<version>0.6.1</version>
+	</dependency>
+	
+	<dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.13</version>
+</dependency>
+
+    
+   <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-java</artifactId>
+    <version>4.0.1</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-core</artifactId>
+    <version>4.0.1</version>
+</dependency>
+
+  <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-picocontainer</artifactId>
+    <version>4.0.1</version>
+    <scope>test</scope>
+</dependency>
+
+   
+ <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-jvm -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-jvm</artifactId>
+    <version>4.0.1</version>
+    <type>pom</type>
+</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-testng</artifactId>
+    <version>4.0.1</version>
+</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.cucumber/gherkin -->
+<!--  <dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>gherkin</artifactId>
+    <version>4.0.0</version>
+</dependency>-->
+
+<dependency>
+    <groupId>info.cukes</groupId>
+    <artifactId>gherkin</artifactId>
+    <version>2.7.3</version>
+</dependency>
+
+  <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports-cucumber4-adapter -->
+<dependency>
+    <groupId>com.aventstack</groupId>
+    <artifactId>extentreports-cucumber4-adapter</artifactId>
+    <version>1.0.7</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/io.cucumber/datatable-dependencies -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>datatable-dependencies</artifactId>
+    <version>1.1.12</version>
+</dependency>
+
+
+
+<!-- https://mvnrepository.com/artifact/io.cucumber/datatable -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>datatable</artifactId>
+    <version>1.0.3</version>
+</dependency>
+	
+	
+    </dependencies>
+    
+</project>

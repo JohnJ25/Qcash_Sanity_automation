@@ -1,0 +1,133 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "line": 22,
+        "name": "Validate the Loan application flow for the CU",
+        "description": "",
+        "id": "qcash-application-:-loan-application-flow-sanity-validation;validate-the-loan-application-flow-for-the-cu;;2",
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 4915173300,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "Launch the FI \"4Fornt\" site \"https://testadmin.q-cash.com/4frontcu/login\" urls",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"4Fornt\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"https://testadmin.q-cash.com/4frontcu/login\"",
+                  "offset": 28
+                }
+              ],
+              "location": "SanitySuite_StepDefinition.Launch_the_FI_site_urls(String,String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 46297788500,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Enter the valid user credentials \"\u003cusername\u003e\" and \"\u003cpassword\u003e\" to access the application",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"\u003cusername\u003e\"",
+                  "offset": 33
+                },
+                {
+                  "val": "\"\u003cpassword\u003e\"",
+                  "offset": 50
+                }
+              ],
+              "location": "SanitySuite_StepDefinition.enter_the_valid_user_credentials_and_to_access_the_application(String,String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 6079771900,
+              "status": "passed"
+            },
+            "line": 11,
+            "name": "From the application dashboard page select the manage fi configuration menu link",
+            "match": {
+              "location": "SanitySuite_StepDefinition.from_the_application_dashboard_page_select_the_manage_fi_configuration_menu_link()"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 8856670900,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "Click on the loan application menu link",
+            "match": {
+              "location": "SanitySuite_StepDefinition.click_on_the_loan_application_menu_link()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: Manage Fi Configuration page is not displayed expected [true] but found [false]\r\n\tat org.testng.Assert.fail(Assert.java:99)\r\n\tat org.testng.Assert.failNotEquals(Assert.java:1037)\r\n\tat org.testng.Assert.assertTrue(Assert.java:45)\r\n\tat com.qcash.HealthCheck.ManageFIConfig.maintenanceInactive(ManageFIConfig.java:150)\r\n\tat StepDefinitions.SanitySuite_StepDefinition.Set_the_maintenance_to_active_or_inactive_and_save_the_page(SanitySuite_StepDefinition.java:91)\r\n\tat ✽.Set the maintenance to active or inactive and save the page(src/test/java/Features/SanitySuite.feature:13)\r\n",
+              "duration": 17391942100,
+              "status": "failed"
+            },
+            "line": 13,
+            "name": "Set the maintenance to active or inactive and save the page",
+            "match": {
+              "location": "SanitySuite_StepDefinition.Set_the_maintenance_to_active_or_inactive_and_save_the_page()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 482600,
+              "status": "skipped"
+            },
+            "line": 14,
+            "name": "Nagivate back to the application dashboard page and select the QA Test suite page",
+            "match": {
+              "location": "SanitySuite_StepDefinition.nagivate_back_to_the_application_dashboard_page_and_select_the_QA_Test_suite_page()"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 394900,
+              "status": "skipped"
+            },
+            "line": 17,
+            "name": "Click on the web test primary and secondary and verify the manintenance page",
+            "match": {
+              "location": "SanitySuite_StepDefinition.click_on_the_web_test_primary_and_secondary_and_verify_the_manintenance_page()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@SanityCheck"
+          }
+        ]
+      }
+    ],
+    "name": "Qcash Application : Loan Application Flow Sanity Validation",
+    "description": "",
+    "id": "qcash-application-:-loan-application-flow-sanity-validation",
+    "keyword": "Feature",
+    "uri": "src/test/java/Features/SanitySuite.feature",
+    "tags": []
+  }
+]

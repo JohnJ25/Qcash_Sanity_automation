@@ -1,0 +1,104 @@
+[
+  {
+    "line": 2,
+    "elements": [
+      {
+        "line": 3,
+        "name": "To verify the UserLogin",
+        "description": "",
+        "id": "login-action;to-verify-the-userlogin",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 18954388191,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "Launch URL",
+            "match": {
+              "location": "UserLogin_Cucumber.launch_URL()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 5645755967,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "app User Login",
+            "match": {
+              "location": "UserLogin_Cucumber.app_User_Login()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 5528129957,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "verify Page",
+            "match": {
+              "location": "UserLogin_Cucumber.verify_Page()"
+            },
+            "keyword": "Then "
+          }
+        ]
+      },
+      {
+        "line": 8,
+        "name": "To verify the AddClient button",
+        "description": "",
+        "id": "login-action;to-verify-the-addclient-button",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 4799108459,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "User Landing to ManageUserRoles page",
+            "match": {
+              "location": "Clients.user_landing_to_manageUserRoles_page()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 10442894265,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "Verify Userrole Access",
+            "match": {
+              "location": "Clients.verify_userrole_access()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 11855920280,
+              "status": "passed"
+            },
+            "line": 11,
+            "name": "User Logout",
+            "match": {
+              "location": "Clients.user_Logout()"
+            },
+            "keyword": "Then "
+          }
+        ]
+      }
+    ],
+    "name": "Login Action",
+    "description": "",
+    "id": "login-action",
+    "keyword": "Feature",
+    "uri": "D:/Projects/Cucumber_DataDriven/InteQ-Web-Automation/src/test/java/Features/MyTest.Feature"
+  }
+]
