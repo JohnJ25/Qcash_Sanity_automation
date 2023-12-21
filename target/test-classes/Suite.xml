@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="BDDTestSuite" verbose="1" parallel="none" preserve-order="true">
+
+	<test name="BDD Test" group-by-instances="true" preserve-order="true" enabled="true">
+		<classes>
+			<class name="MyRunner.TestRunner" />
+		</classes>
+	</test>
+</suite>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+        <File name="TestLog" fileName="./src/test/resources/TestLog.log" immediateFlush="false" append="true">
+			<PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+		<File name="MainLog" fileName="./src/main/resources/MainLog.log" immediateFlush="false" append="true">
+			<PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="ALL">
+            <AppenderRef ref="Console" level="DEBUG"/>
+			<AppenderRef ref="MainLog" level="DEBUG"/>
+			<AppenderRef ref="TestLog" level="INFO"/>
+        </Root>
+    </Loggers>
+</Configuration>
