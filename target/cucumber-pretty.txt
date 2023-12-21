@@ -15,17 +15,3 @@ Feature: Qcash Application : Loan Application Flow Sanity Validation
   @SanityCheck
   Scenario Outline: Validate the Loan application flow for the CU                                  # src/test/java/Features/SanitySuite.feature:22
     Given Launch the FI "4Fornt" site "https://testadmin.q-cash.com/4frontcu/login" urls           # SanitySuite_StepDefinition.Launch_the_FI_site_urls(String,String)
-    Given Enter the valid user credentials "<username>" and "<password>" to access the application # SanitySuite_StepDefinition.enter_the_valid_user_credentials_and_to_access_the_application(String,String)
-    Then From the application dashboard page select the manage fi configuration menu link          # SanitySuite_StepDefinition.from_the_application_dashboard_page_select_the_manage_fi_configuration_menu_link()
-    When Click on the loan application menu link                                                   # SanitySuite_StepDefinition.click_on_the_loan_application_menu_link()
-    And Set the maintenance to active or inactive and save the page                                # SanitySuite_StepDefinition.Set_the_maintenance_to_active_or_inactive_and_save_the_page()
-      java.lang.AssertionError: Manage Fi Configuration page is not displayed expected [true] but found [false]
-	at org.testng.Assert.fail(Assert.java:99)
-	at org.testng.Assert.failNotEquals(Assert.java:1037)
-	at org.testng.Assert.assertTrue(Assert.java:45)
-	at com.qcash.HealthCheck.ManageFIConfig.maintenanceInactive(ManageFIConfig.java:150)
-	at StepDefinitions.SanitySuite_StepDefinition.Set_the_maintenance_to_active_or_inactive_and_save_the_page(SanitySuite_StepDefinition.java:91)
-	at ✽.Set the maintenance to active or inactive and save the page(src/test/java/Features/SanitySuite.feature:13)
-
-    Then Nagivate back to the application dashboard page and select the QA Test suite page         # SanitySuite_StepDefinition.nagivate_back_to_the_application_dashboard_page_and_select_the_QA_Test_suite_page()
-    Then Click on the web test primary and secondary and verify the manintenance page              # SanitySuite_StepDefinition.click_on_the_web_test_primary_and_secondary_and_verify_the_manintenance_page()
