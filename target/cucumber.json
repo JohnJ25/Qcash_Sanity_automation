@@ -1,0 +1,120 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "line": 22,
+        "name": "Validate the Loan application flow for the CU",
+        "description": "",
+        "id": "qcash-application-:-loan-application-flow-sanity-validation;validate-the-loan-application-flow-for-the-cu;;2",
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 2414287000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "Launch the FI \"4Fornt\" site \"https://testadmin.q-cash.com/4frontcu/login\" urls",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"4Fornt\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"https://testadmin.q-cash.com/4frontcu/login\"",
+                  "offset": 28
+                }
+              ],
+              "location": "SanitySuite_StepDefinition.Launch_the_FI_site_urls(String,String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 34405984100,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Enter the valid user credentials \"\u003cusername\u003e\" and \"\u003cpassword\u003e\" to access the application",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"\u003cusername\u003e\"",
+                  "offset": 33
+                },
+                {
+                  "val": "\"\u003cpassword\u003e\"",
+                  "offset": 50
+                }
+              ],
+              "location": "SanitySuite_StepDefinition.enter_the_valid_user_credentials_and_to_access_the_application(String,String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 61073416100,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "Select the Maintenance Active and complete the loan application flow",
+            "match": {
+              "location": "SanitySuite_StepDefinition.select_the_Maintenance_Active_and_complete_the_loan_application_flow()"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 57611019900,
+              "status": "passed"
+            },
+            "line": 13,
+            "name": "Select the Maintenance InActive and complete the loan application flow",
+            "match": {
+              "location": "SanitySuite_StepDefinition.select_the_Maintenance_InActive_and_complete_the_loan_application_flow()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 377300,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "Select the Awareness page Active and complete the loan application flow",
+            "match": {
+              "location": "SanitySuite_StepDefinition.select_the_Awareness_page_Active_and_complete_the_loan_application_flow()"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 333200,
+              "status": "passed"
+            },
+            "line": 17,
+            "name": "Select the Awareness page InActive and complete the loan application flow",
+            "match": {
+              "location": "SanitySuite_StepDefinition.select_the_Awareness_page_InActive_and_complete_the_loan_application_flow()"
+            },
+            "keyword": "And "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@SanityCheck"
+          }
+        ]
+      }
+    ],
+    "name": "Qcash Application : Loan Application Flow Sanity Validation",
+    "description": "",
+    "id": "qcash-application-:-loan-application-flow-sanity-validation",
+    "keyword": "Feature",
+    "uri": "src/test/java/Features/SanitySuite.feature",
+    "tags": []
+  }
+]

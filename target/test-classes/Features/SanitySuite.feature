@@ -7,14 +7,14 @@ Feature: Qcash Application : Loan Application Flow Sanity Validation
   Given Launch the FI "<sitename>" site "<url>" urls
   Given Enter the valid user credentials "<username>" and "<password>" to access the application
   
-  #Maintenance Page
-  Then From the application dashboard page select the manage fi configuration menu link
-  When Click on the loan application menu link
-  And Set the maintenance to active or inactive and save the page
-  Then Nagivate back to the application dashboard page and select the QA Test suite page
   
-  #Loan application launch
-  Then Click on the web test primary and secondary and verify the manintenance page 
+  #Maintenance Page
+  Then Select the Maintenance Active and complete the loan application flow
+  And Select the Maintenance InActive and complete the loan application flow
+    
+  #Awareness Page 
+  Then Select the Awareness page Active and complete the loan application flow
+  And Select the Awareness page InActive and complete the loan application flow
     
    Examples:
     

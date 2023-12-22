@@ -1,5 +1,7 @@
 package StepDefinitions;
 
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -59,114 +61,89 @@ public class SanitySuite_StepDefinition extends TestBase {
 		}
 	}
 
-	
 
-@Then("From the application dashboard page select the manage fi configuration menu link")
-public void from_the_application_dashboard_page_select_the_manage_fi_configuration_menu_link() {
-  
-    try {
+	
+@Then("Select the Maintenance Active and complete the loan application flow")
+public void select_the_Maintenance_Active_and_complete_the_loan_application_flow() throws InterruptedException, IOException, Exception {
+	
+	try {
+		
 		ManageFIConfig.fIConfig();
 		logger.info(Util.CUName + " - Manage fi configuration page is displayed");
-    	
+		ManageFIConfig.fIconfigLoanApplication();
+		logger.info(Util.CUName + " - Manage fi configuration Loan application page is displayed");
+		ManageFIConfig.maintenance();
+		logger.info(Util.CUName + " - The Maintenance active is selected");
+		QATestSuitePageFunctions.WebTestPrimarySecondaryValidation();
+		logger.info(Util.CUName + " - The Maintenance is Active so the Maintenance page is validated");
+		
+		
 	} catch (Exception e) {
 		Util.takeScreenShot("");
-		logger.error(Util.CUName + " - Manage fi configuration Menu link is not clicked");
-		Assert.assertTrue(false, "Manage fi configuration Menu link is not clicked");
+		logger.error(Util.CUName + " - The Maintenance Page is not displayed");
+		Assert.assertTrue(false, "The Maintenance Page is not displayed");
 	}
+		
+	
+	
 }
 
-@When("Click on the loan application menu link")
-public void click_on_the_loan_application_menu_link() {
-	   try {
-		   ManageFIConfig.fIconfigLoanApplication();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+@Then("Select the Maintenance InActive and complete the loan application flow")
+public void select_the_Maintenance_InActive_and_complete_the_loan_application_flow() throws InterruptedException, IOException, Exception {
+  
+	try{
+	   ManageFIConfig.fIConfig();
+	   logger.info(Util.CUName + " - Manage fi configuration page is displayed");
+	   ManageFIConfig.fIconfigLoanApplication();
+	   logger.info(Util.CUName + " - Manage fi configuration Loan application page is displayed");
+	   ManageFIConfig.maintenanceInactivetest();
+	   logger.info(Util.CUName + " - The Maintenance Inactive is selected");
+	   QATestSuitePageFunctions.WebTestPrimarySecondaryValidation();
+	   logger.info(Util.CUName + " - The Maintenance is Inactive so the loan application page validated");
+	
+} catch (Exception e) {
+	Util.takeScreenShot("");
+	logger.error(Util.CUName + " - The Maintenance Inactive setting is not working");
+	Assert.assertTrue(false, "The Maintenance Inactive setting is not working");
+}
+}
+	
+@Then("Select the Awareness page Active and complete the loan application flow")
+public void select_the_Awareness_page_Active_and_complete_the_loan_application_flow() {
+  try {
+	  ManageFIConfig.fIConfig();
+	   logger.info(Util.CUName + " - Manage fi configuration page is displayed");
+	   ManageFIConfig.fIconfigLoanApplication();
+	   logger.info(Util.CUName + " - Manage fi configuration Loan application page is displayed");
+	   ManageFIConfig.awarenessActive();
+	   logger.info(Util.CUName + " - The awarness setting is selected");
+	   QATestSuitePageFunctions.WebTestPrimarySecondaryAwarnessValidation();
+	   logger.info(Util.CUName + " - The awarness setting  is active so the Awarness page is validated");
+} catch (Exception e) {
+	Util.takeScreenShot("");
+	logger.error(Util.CUName + " - The awarness page active setting is not working");
+	Assert.assertTrue(false, "The awarness page active setting is not working");
+}
+  
 }
 
-@When("Set the maintenance to active or inactive and save the page")
-public void Set_the_maintenance_to_active_or_inactive_and_save_the_page() {
-	   try {
-		 //  ManageFIConfig.maintenance();
-		   ManageFIConfig.maintenanceInactive();
-		   
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+@Then("Select the Awareness page InActive and complete the loan application flow")
+public void select_the_Awareness_page_InActive_and_complete_the_loan_application_flow() {
+  try {
+	  ManageFIConfig.fIConfig();
+	   logger.info(Util.CUName + " - Manage fi configuration page is displayed");
+	   ManageFIConfig.fIconfigLoanApplication();
+	   logger.info(Util.CUName + " - Manage fi configuration Loan application page is displayed");
+	   ManageFIConfig.awarenessINActive();
+	   logger.info(Util.CUName + " - The awarness setting is not selected");
+	   QATestSuitePageFunctions.WebTestPrimarySecondaryAwarnessValidation();
+	   logger.info(Util.CUName + " - The awarness setting is inactive so the loan application page validated");
+} catch (Exception e) {
+	Util.takeScreenShot("");
+	logger.error(Util.CUName + " - The awarness page active setting is working");
+	Assert.assertTrue(false, "The Maintenance Inactive setting is working");
 }
-
-@Then("Nagivate back to the application dashboard page and select the QA Test suite page")
-public void nagivate_back_to_the_application_dashboard_page_and_select_the_QA_Test_suite_page() {
-	   try {
-			
-		   QATestSuitePageFunctions.WebTestPrimarySecondaryValidation();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 }
-
-@Then("Click on the web test primary and secondary and verify the manintenance page")
-public void click_on_the_web_test_primary_and_secondary_and_verify_the_manintenance_page() {
-	   try {
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-/*
- * @Given("From the application dashboard page select the system status menu link"
- * ) // StatusMenuNavigationCheck public void
- * from_the_application_dashboard_page_select_the_system_status_menu_link() {
- * try { NCRStatusPageFunctions.StatusMenu(); logger.info(Util.CUName +
- * " - Status Menu is displayed"); } catch (Exception e) {
- * Util.takeScreenShot("StatusMenuNavigationCheck"); logger.error(Util.CUName +
- * " - Status Menu link is not clicked"); Assert.assertTrue(false,
- * "Status Menu link is not clicked"); }
- * 
- * }
- * 
- * @When("Click on the refresh button and check the system status is stable") //
- * RefreshButtonClick public void
- * Click_on_the_refresh_button_and_check_the_system_status_is_stable() { try {
- * NCRStatusPageFunctions.PageRefresh();
- * 
- * } catch (Exception e) { e.printStackTrace();
- * Util.takeScreenShot("RefreshButtonClick"); logger.error(Util.CUName +
- * " - Issue with System status Refresh"); Assert.assertTrue(false,
- * "Issue with System status Refresh"); } }
- * 
- * @Then("validate the NCR certificate primary and secondary regions are stable"
- * ) // PrimaryandSecondaryRegionStatus public void
- * validate_the_NCR_certificate_primary_and_secondary_regions_are_stable() { try
- * { scrolldown(); //
- * NCRStatusPageFunctions.PrimaryandSecondaryRegionStatus("NcrTable", //
- * "PrimaryNcrStatus"); //
- * NCRStatusPageFunctions.PrimaryandSecondaryRegionStatus("AdminFooterLogo",
- * "Primary_SysStatus"); //
- * NCRStatusPageFunctions.PrimaryandSecondaryRegionNCRStatus("NcrTable",
- * "PrimaryNcrStatus"); //
- * TestSuitePageFunction.PrimaryandSecondaryRegionNCRStatus(v, en);
- * logger.info(Util.CUName +
- * " - Primary and Secondary region status are validated");
- * QATestSuitePageFunctions.ValidatevaluesinQATestsuitePageAfterPagerefresh();
- * QATestSuitePageFunctions.WebTestPrimarySecondaryValidation(); } catch
- * (Exception e) { Util.takeScreenShot("PrimaryandSecondaryRegionStatus");
- * logger.error(Util.CUName +
- * " - Primary and Secondary region status are  stable");
- * Assert.assertTrue(false, "Primary and Secondary region status are  stable");
- * } }
- */
 
 
 

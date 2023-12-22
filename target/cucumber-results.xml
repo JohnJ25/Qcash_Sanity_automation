@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite failures="0" name="cucumber.runtime.formatter.JUnitFormatter" skipped="0" tests="1" time="155.755733">
+<testcase classname="Qcash Application : Loan Application Flow Sanity Validation" name="Validate the Loan application flow for the CU" time="155.755733">
+<system-out><![CDATA[Given Launch the FI "4Fornt" site "https://testadmin.q-cash.com/4frontcu/login" urls.passed
+Given Enter the valid user credentials "<username>" and "<password>" to access the application.passed
+Then Select the Maintenance Active and complete the loan application flow...passed
+And Select the Maintenance InActive and complete the loan application flow..passed
+Then Select the Awareness page Active and complete the loan application flow.passed
+And Select the Awareness page InActive and complete the loan application flow.passed
+]]></system-out>
+</testcase>
+</testsuite>
