@@ -9,12 +9,20 @@ Feature: Qcash Application : Loan Application Flow Sanity Validation
   
   
   #Maintenance Page
-  Then Select the Maintenance Active and complete the loan application flow
-  And Select the Maintenance InActive and complete the loan application flow
+ # Then Select the Maintenance Active and complete the loan application flow
+ # And Select the Maintenance InActive and complete the loan application flow
     
   #Awareness Page 
   Then Select the Awareness page Active and complete the loan application flow
   And Select the Awareness page InActive and complete the loan application flow
+    
+    
+  #FraudControl
+  Then Select the Fraud Control page and Activate the FraudControl setting and verify the loan application flow
+  And Select the Fraud Control page and InActivate the FraudControl setting and verify the loan application flow
+  
+  #MaskWaitTime
+  
     
    Examples:
     

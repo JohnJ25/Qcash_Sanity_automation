@@ -6,14 +6,24 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.SendKeysAction;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.github.dockerjava.api.model.Driver;
 import com.qcash.testbase.TestBase;
 import com.qcash.utilities.Util;
 
 public class ManageFIConfig extends TestBase {
+	
+	
+	static String feebasedtext = "" ;
+	static String interstbasedtext ="";
+	static String FraudControlresend ="";
+	static String FraudControlSubmit ="";
+	static String FarudControlCodevalidity ="";
+	
 
 	static Logger logger = LogManager.getLogger(ManageFIConfig.class);
 	
@@ -268,6 +278,33 @@ public static void awarenessActive() throws Exception, InterruptedException, IOE
 					logger.info(Util.CUName + " - Active Radio option is clicked"); // 
 					logger.info(Util.CUName + " - General Loan Application page is displayed");
 					
+					
+					
+					//*************************
+					
+			   // waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("FeeBasedThresholdtext"))));			        
+			    
+			    WebElement feebasedbox = driver.findElement(By.xpath(OR.getProperty("FeeBasedThresholdtext")));
+			    
+			    
+			        feebasedtext = getObject("FeeBasedThresholdtext").getAttribute("value").trim();
+	                getObject("FeeBasedThresholdtext").clear();
+	                logger.info(Util.CUName + " - feebased Text Box is cleared");
+	                feebasedbox.sendKeys("0");
+	                
+	            Thread.sleep(2000);    
+	              //  waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("InterestBasedThresholdtext"))));			        
+				    
+				    WebElement interestbasedbox = driver.findElement(By.xpath(OR.getProperty("InterestBasedThresholdtext")));
+				    
+	               interstbasedtext = getObject("InterestBasedThresholdtext").getAttribute("value").trim();
+	               getObject("InterestBasedThresholdtext").clear();
+	               logger.info(Util.CUName + " -Interestbased Test Box is cleared");
+	               interestbasedbox.sendKeys("0");
+					
+					//***************
+					
+					
 					scrolldown();
 					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("AwarnessPageSave"))));
 					getObject("GeneralPageSave").click();
@@ -317,9 +354,32 @@ public static void awarenessINActive() throws Exception, InterruptedException, I
 				logger.info(Util.CUName + " - Active Radio option is clicked"); // 
 				logger.info(Util.CUName + " - General Loan Application page is displayed");
 				
+				   //*************
+				  WebElement feebasedbox = driver.findElement(By.xpath(OR.getProperty("FeeBasedThresholdtext")));
+				    
+				    
+			      //  feebasedtext = getObject("FeeBasedThresholdtext").getAttribute("value").trim();
+	                getObject("FeeBasedThresholdtext").sendKeys(feebasedtext);
+	                logger.info(Util.CUName + " - feebased Text Box value is restored");
+	               
+	                
+	            Thread.sleep(2000);    
+	              //  waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("InterestBasedThresholdtext"))));			        
+				    
+				    WebElement interestbasedbox = driver.findElement(By.xpath(OR.getProperty("InterestBasedThresholdtext")));
+				    
+	              // interstbasedtext = getObject("InterestBasedThresholdtext").getAttribute("value").trim();
+	               getObject("InterestBasedThresholdtext").sendKeys(interstbasedtext);
+	               logger.info(Util.CUName + " -Interestbased Test Box value is restored");
+	               
+					
+	               //*************
+				
+				
+				
 				scrolldown();
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("AwarnessPageSave"))));
-				getObject("GeneralPageSave").click();
+				getObject("AwarnessPageSave").click();
 				logger.info(Util.CUName + " - Awerness page is saved");
 				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
@@ -349,6 +409,169 @@ public static void awarenessINActive() throws Exception, InterruptedException, I
 
 
 
+public static void fraudControlActive() throws Exception, InterruptedException, IOException {
+	
+	
+	try {
+		WebDriverWait waite = new WebDriverWait(driver, 120);
+		Util.waitForSeconds(5);
+		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("FraudControl"))));
+		getObject("FraudControl").click();
+
+	        WebElement active = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("FraudControlActive"))));
+				
+	        active.click();
+				
+				logger.info(Util.CUName + " - Active Radio option is clicked"); // 
+				logger.info(Util.CUName + " - Fraud control page is displayed");
+				
+				
+				
+				//*************************
+				
+		 
+		    WebElement FCresend = driver.findElement(By.xpath(OR.getProperty("FCresendThreshold")));
+		    
+		    
+		    FraudControlresend = getObject("FCresendThreshold").getAttribute("value").trim();
+                getObject("FCresendThreshold").clear();
+                logger.info(Util.CUName + " - Resend Text Box is cleared");
+                FCresend.sendKeys("2");
+                
+            Thread.sleep(1000);    
+             
+			    WebElement FCsubmit = driver.findElement(By.xpath(OR.getProperty("FCsubmitThreshold")));
+			    
+               FraudControlSubmit = getObject("FCsubmitThreshold").getAttribute("value").trim();
+               getObject("FCsubmitThreshold").clear();
+               logger.info(Util.CUName + " -Submit threshold text box is cleared");
+               FCsubmit.sendKeys("2");
+               
+               Thread.sleep(1000);    
+               
+               WebElement FCcodevalidity = driver.findElement(By.xpath(OR.getProperty("FCcodevalidity")));
+			    
+               FarudControlCodevalidity = getObject("FCcodevalidity").getAttribute("value").trim();
+               getObject("FCcodevalidity").clear();
+               logger.info(Util.CUName + " -Submit threshold text box is cleared");
+               FCcodevalidity.sendKeys("5");
+               
+				//***************
+				
+				
+				scrolldown();
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("FCsave"))));
+				getObject("FCsave").click();
+				logger.info(Util.CUName + " - Fraud control page is saved");
+				
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
+				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
+				Assert.assertTrue(true, "Validated sucess message");
+				
+				
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+				getObject("Home_Breadcrumb_link").click();
+		
+				logger.info(Util.CUName + " - Dashboard page is displayed");
+
+				// the check box is checked or not - need verification
+				
+//				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+//				getObject("Home_Breadcrumb_link").click();
+	//		}
+			
+			
+			
+	} catch (Exception e) {
+		Util.takeScreenShot("LoanApp_Menu_Link");
+		logger.error(Util.CUName + " - Manage Fi Configuration page is not displayed");
+		Assert.assertTrue(false, "Manage Fi Configuration page is not displayed");
+	}
+}
+
+
+public static void fraudControlInActive() throws Exception, InterruptedException, IOException {
+	
+	
+	try {
+		WebDriverWait waite = new WebDriverWait(driver, 120);
+		Util.waitForSeconds(5);
+		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("FraudControl"))));
+		getObject("FraudControl").click();
+
+	        WebElement InActive = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("FraudContolInactive"))));
+				
+	        InActive.click();
+				
+				logger.info(Util.CUName + " - Inactive Radio option is clicked"); // 
+				logger.info(Util.CUName + " - Fraud control page is displayed");
+				
+				
+				
+				//*************************
+				
+		 
+		    WebElement FCresend = driver.findElement(By.xpath(OR.getProperty("FCresendThreshold")));
+		    
+		    
+		   // FraudControlresend = getObject("FCresendThreshold").getAttribute("value").trim();
+                getObject("FCresendThreshold").clear();
+                logger.info(Util.CUName + " - Resend Text Box is cleared");
+                FCresend.sendKeys(FraudControlresend);
+                logger.info(Util.CUName + " - Resend Text Box is restored");
+                
+            Thread.sleep(1000);    
+             
+			    WebElement FCsubmit = driver.findElement(By.xpath(OR.getProperty("FCsubmitThreshold")));
+			    
+              // FraudControlSubmit = getObject("FCsubmitThreshold").getAttribute("value").trim();
+               getObject("FCsubmitThreshold").clear();
+               logger.info(Util.CUName + " -Submit threshold text box is cleared");
+               FCsubmit.sendKeys(FraudControlSubmit);
+               logger.info(Util.CUName + " -Submit threshold text box is restored");
+               
+               Thread.sleep(1000);    
+               
+               WebElement FCcodevalidity = driver.findElement(By.xpath(OR.getProperty("FCcodevalidity")));
+			    
+            //   FarudControlCodevalidity = getObject("FCcodevalidity").getAttribute("value").trim();
+               getObject("FCcodevalidity").clear();
+               logger.info(Util.CUName + " -Submit threshold text box is cleared");
+               FCcodevalidity.sendKeys(FarudControlCodevalidity);
+               
+               logger.info(Util.CUName + " -Submit threshold text box is restored");
+				//***************
+				
+				
+				scrolldown();
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("FCsave"))));
+				getObject("FCsave").click();
+				logger.info(Util.CUName + " - Fraud control page is saved");
+				
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
+				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
+				Assert.assertTrue(true, "Validated sucess message");
+				
+				
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+				getObject("Home_Breadcrumb_link").click();
+		
+				logger.info(Util.CUName + " - Dashboard page is displayed");
+
+				// the check box is checked or not - need verification
+				
+//				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+//				getObject("Home_Breadcrumb_link").click();
+	//		}
+			
+			
+			
+	} catch (Exception e) {
+		Util.takeScreenShot("LoanApp_Menu_Link");
+		logger.error(Util.CUName + " - Manage Fi Configuration page is not displayed");
+		Assert.assertTrue(false, "Manage Fi Configuration page is not displayed");
+	}
+}
 
 	
 }

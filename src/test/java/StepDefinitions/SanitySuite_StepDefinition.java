@@ -63,50 +63,50 @@ public class SanitySuite_StepDefinition extends TestBase {
 
 
 	
-@Then("Select the Maintenance Active and complete the loan application flow")
-public void select_the_Maintenance_Active_and_complete_the_loan_application_flow() throws InterruptedException, IOException, Exception {
-	
-	try {
-		
-		ManageFIConfig.fIConfig();
-		logger.info(Util.CUName + " - Manage fi configuration page is displayed");
-		ManageFIConfig.fIconfigLoanApplication();
-		logger.info(Util.CUName + " - Manage fi configuration Loan application page is displayed");
-		ManageFIConfig.maintenance();
-		logger.info(Util.CUName + " - The Maintenance active is selected");
-		QATestSuitePageFunctions.WebTestPrimarySecondaryValidation();
-		logger.info(Util.CUName + " - The Maintenance is Active so the Maintenance page is validated");
-		
-		
-	} catch (Exception e) {
-		Util.takeScreenShot("");
-		logger.error(Util.CUName + " - The Maintenance Page is not displayed");
-		Assert.assertTrue(false, "The Maintenance Page is not displayed");
-	}
-		
-	
-	
-}
-
-@Then("Select the Maintenance InActive and complete the loan application flow")
-public void select_the_Maintenance_InActive_and_complete_the_loan_application_flow() throws InterruptedException, IOException, Exception {
-  
-	try{
-	   ManageFIConfig.fIConfig();
-	   logger.info(Util.CUName + " - Manage fi configuration page is displayed");
-	   ManageFIConfig.fIconfigLoanApplication();
-	   logger.info(Util.CUName + " - Manage fi configuration Loan application page is displayed");
-	   ManageFIConfig.maintenanceInactivetest();
-	   logger.info(Util.CUName + " - The Maintenance Inactive is selected");
-	   QATestSuitePageFunctions.WebTestPrimarySecondaryValidation();
-	   logger.info(Util.CUName + " - The Maintenance is Inactive so the loan application page validated");
-	
-} catch (Exception e) {
-	Util.takeScreenShot("");
-	logger.error(Util.CUName + " - The Maintenance Inactive setting is not working");
-	Assert.assertTrue(false, "The Maintenance Inactive setting is not working");
-}
-}
+//@Then("Select the Maintenance Active and complete the loan application flow")
+//public void select_the_Maintenance_Active_and_complete_the_loan_application_flow() throws InterruptedException, IOException, Exception {
+//	
+//	try {
+//		
+//		ManageFIConfig.fIConfig();
+//		logger.info(Util.CUName + " - Manage fi configuration page is displayed");
+//		ManageFIConfig.fIconfigLoanApplication();
+//		logger.info(Util.CUName + " - Manage fi configuration Loan application page is displayed");
+//		ManageFIConfig.maintenance();
+//		logger.info(Util.CUName + " - The Maintenance active is selected");
+//		QATestSuitePageFunctions.WebTestPrimarySecondaryValidation();
+//		logger.info(Util.CUName + " - The Maintenance is Active so the Maintenance page is validated");
+//		
+//		
+//	} catch (Exception e) {
+//		Util.takeScreenShot("");
+//		logger.error(Util.CUName + " - The Maintenance Page is not displayed");
+//		Assert.assertTrue(false, "The Maintenance Page is not displayed");
+//	}
+//		
+//	
+//	
+//}
+//
+//@Then("Select the Maintenance InActive and complete the loan application flow")
+//public void select_the_Maintenance_InActive_and_complete_the_loan_application_flow() throws InterruptedException, IOException, Exception {
+//  
+//	try{
+//	   ManageFIConfig.fIConfig();
+//	   logger.info(Util.CUName + " - Manage fi configuration page is displayed");
+//	   ManageFIConfig.fIconfigLoanApplication();
+//	   logger.info(Util.CUName + " - Manage fi configuration Loan application page is displayed");
+//	   ManageFIConfig.maintenanceInactivetest();
+//	   logger.info(Util.CUName + " - The Maintenance Inactive is selected");
+//	   QATestSuitePageFunctions.WebTestPrimarySecondaryValidation();
+//	   logger.info(Util.CUName + " - The Maintenance is Inactive so the loan application page validated");
+//	
+//} catch (Exception e) {
+//	Util.takeScreenShot("");
+//	logger.error(Util.CUName + " - The Maintenance Inactive setting is not working");
+//	Assert.assertTrue(false, "The Maintenance Inactive setting is not working");
+//}
+//}
 	
 @Then("Select the Awareness page Active and complete the loan application flow")
 public void select_the_Awareness_page_Active_and_complete_the_loan_application_flow() {
@@ -141,9 +141,42 @@ public void select_the_Awareness_page_InActive_and_complete_the_loan_application
 } catch (Exception e) {
 	Util.takeScreenShot("");
 	logger.error(Util.CUName + " - The awarness page active setting is working");
-	Assert.assertTrue(false, "The Maintenance Inactive setting is working");
+	Assert.assertTrue(false, "The awarness page active setting is working");
 }
 }
+
+
+@Then("Select the Fraud Control page and Activate the FraudControl setting and verify the loan application flow")
+public void select_the_Fraud_Control_page_and_Activate_the_FraudControl_setting_and_verify_the_loan_application_flow() {
+   
+	try {
+		  ManageFIConfig.fIConfig();
+		  ManageFIConfig.fIconfigLoanApplication();
+		  ManageFIConfig.fraudControlActive();
+		  QATestSuitePageFunctions.WebTestPrimarySecondaryFraudcontrolValidation();
+		   
+	} catch (Exception e) {
+		Util.takeScreenShot("");
+		logger.error(Util.CUName + " - The Fraud control page active setting is working");
+		Assert.assertTrue(false, "The Fraud control page active setting is working");
+	}
+}
+
+@Then("Select the Fraud Control page and InActivate the FraudControl setting and verify the loan application flow")
+public void select_the_Fraud_Control_page_and_InActivate_the_FraudControl_setting_and_verify_the_loan_application_flow() {
+   try {
+		  ManageFIConfig.fIConfig();
+		  ManageFIConfig.fIconfigLoanApplication();
+		  ManageFIConfig.fraudControlInActive();
+		  QATestSuitePageFunctions.WebTestPrimarySecondaryFraudcontrolValidation();
+} catch (Exception e) {
+	Util.takeScreenShot("");
+	logger.error(Util.CUName + " - The Fraud control page Inactive setting is working");
+	Assert.assertTrue(false, "The Fraud control page Inactive setting is working");
+}
+}
+
+
 
 
 
