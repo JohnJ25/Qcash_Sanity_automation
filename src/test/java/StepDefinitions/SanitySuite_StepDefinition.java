@@ -177,6 +177,33 @@ public void select_the_Fraud_Control_page_and_InActivate_the_FraudControl_settin
 }
 
 
+@Then("Select the Mask Initiate Wait Time Active and complete the loan application flow")
+public void select_the_Mask_Initiate_Wait_Time_Active_and_complete_the_loan_application_flow() throws InterruptedException, IOException, Exception {
+	   try {
+			  ManageFIConfig.fIConfig();
+			  ManageFIConfig.fIconfigLoanApplication();
+			  ManageFIConfig.maskWaitActive();
+			  QATestSuitePageFunctions.WebTestPrimarySecondaryMaskwaitValidation();
+	} catch (Exception e) {
+		Util.takeScreenShot("");
+		logger.error(Util.CUName + " - The mask initiate wait page active setting is working");
+		Assert.assertTrue(false, "The mask initiate wait page active setting is working");
+	}
+}
+
+@Then("Select the Mask Initiate Wait Time InActive and complete the loan application flow")
+public void select_the_Mask_Initiate_Wait_Time_InActive_and_complete_the_loan_application_flow() {
+	   try {
+			  ManageFIConfig.fIConfig();
+			  ManageFIConfig.fIconfigLoanApplication();
+			  ManageFIConfig.maskWaitInActive();
+			  QATestSuitePageFunctions.WebTestPrimarySecondaryMaskwaitValidation();
+	} catch (Exception e) {
+		Util.takeScreenShot("");
+		logger.error(Util.CUName + " - The mask initiate wait page active setting is working");
+		Assert.assertTrue(false, "The mask initiate wait page active setting is working");
+	}
+}
 
 
 

@@ -573,5 +573,100 @@ public static void fraudControlInActive() throws Exception, InterruptedException
 	}
 }
 
+
+public static void maskWaitActive() {
+	
+	try {
+		WebDriverWait waite = new WebDriverWait(driver, 120);
+		Util.waitForSeconds(5);
+		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralLink"))));
+		getObject("GeneralLink").click();
+
+	        WebElement active = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("MaskActive"))));
+				
+	        active.click();
+				
+				logger.info(Util.CUName + " - Active Radio option is clicked"); // 
+				logger.info(Util.CUName + " - General Loan Application page is displayed");
+				
+			
+				
+				//***************
+				
+				
+				scrolldown();
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralPageSave"))));
+				getObject("GeneralPageSave").click();
+				logger.info(Util.CUName + " - Loan application General page is saved");
+				
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
+				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
+				Assert.assertTrue(true, "Validated sucess message");
+				
+				
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+				getObject("Home_Breadcrumb_link").click();
+		
+				logger.info(Util.CUName + " - Dashboard page is displayed");
+		
+						
+			
+	} catch (Exception e) {
+		Util.takeScreenShot("LoanApp_Menu_Link");
+		logger.error(Util.CUName + " - Manage Fi Configuration page is not displayed");
+		Assert.assertTrue(false, "Manage Fi Configuration page is not displayed");
+	}
+
+
+}
+
+
+public static void maskWaitInActive() {
+	
+	try {
+		WebDriverWait waite = new WebDriverWait(driver, 120);
+		Util.waitForSeconds(5);
+		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralLink"))));
+		getObject("GeneralLink").click();
+
+	        WebElement inactive = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("MaskKInActive"))));
+				
+	        inactive.click();
+				
+				logger.info(Util.CUName + " - InActive Radio option is clicked"); // 
+				logger.info(Util.CUName + " - General Loan Application page is displayed");
+				
+			
+				
+				//***************
+				
+				
+				scrolldown();
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralPageSave"))));
+				getObject("GeneralPageSave").click();
+				logger.info(Util.CUName + " - Loan application General page is saved");
+				
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
+				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
+				Assert.assertTrue(true, "Validated sucess message");
+				
+				
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+				getObject("Home_Breadcrumb_link").click();
+		
+				logger.info(Util.CUName + " - Dashboard page is displayed");
+		
+						
+			
+	} catch (Exception e) {
+		Util.takeScreenShot("LoanApp_Menu_Link");
+		logger.error(Util.CUName + " - Manage Fi Configuration page is not displayed");
+		Assert.assertTrue(false, "Manage Fi Configuration page is not displayed");
+	}
+
+
+}
+
+
 	
 }

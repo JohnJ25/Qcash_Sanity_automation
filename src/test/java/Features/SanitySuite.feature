@@ -21,13 +21,14 @@ Feature: Qcash Application : Loan Application Flow Sanity Validation
   Then Select the Fraud Control page and Activate the FraudControl setting and verify the loan application flow
   And Select the Fraud Control page and InActivate the FraudControl setting and verify the loan application flow
   
-  #MaskWaitTime
-  
+  #Mask Initiate Wait Time
+  Then Select the Mask Initiate Wait Time Active and complete the loan application flow
+  And Select the Mask Initiate Wait Time InActive and complete the loan application flow
     
    Examples:
     
 	| sitename   						|| url							 			 		                     			|  
-	| 4Fornt						   	||  https://testadmin.q-cash.com/4frontcu/login   		|
+	| Vibe Credit Union						   	||  https://testadmin.q-cash.com/vibecu/Authentication/Login   		|
 	#| PVFCU 						    	||  https://testadmin.q-cash.com/pvfcu/Authentication/Login			      |
 
 
