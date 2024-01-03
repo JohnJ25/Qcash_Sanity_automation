@@ -9,8 +9,8 @@ Feature: Qcash Application : Loan Application Flow Sanity Validation
   
   
   #Maintenance Page
- # Then Select the Maintenance Active and complete the loan application flow
- # And Select the Maintenance InActive and complete the loan application flow
+  Then Select the Maintenance Active and complete the loan application flow
+  And Select the Maintenance InActive and complete the loan application flow
     
   #Awareness Page 
   Then Select the Awareness page Active and complete the loan application flow
@@ -25,6 +25,11 @@ Feature: Qcash Application : Loan Application Flow Sanity Validation
   Then Select the Mask Initiate Wait Time Active and complete the loan application flow
   And Select the Mask Initiate Wait Time InActive and complete the loan application flow
     
+  #AAN
+  Then Select Active on the Deny for Max Open QCash Loans Across Products setting and launch the loan application flow
+  And Select InActive on the Deny for Max Open QCash Loans Across Products setting and launch the loan application flow
+  
+  
    Examples:
     
 	| sitename   						|| url							 			 		                     			|  

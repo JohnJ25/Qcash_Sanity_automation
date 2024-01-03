@@ -4,16 +4,23 @@ Feature: Qcash Application : Loan Application Flow Sanity Validation
   Scenario Outline: Validate the Loan application flow for the CU # src/test/java/Features/SanitySuite.feature:4
     Given Launch the FI "<sitename>" site "<url>" urls
     Given Enter the valid user credentials "<username>" and "<password>" to access the application
+    Then Select the Maintenance Active and complete the loan application flow
+    And Select the Maintenance InActive and complete the loan application flow
     Then Select the Awareness page Active and complete the loan application flow
     And Select the Awareness page InActive and complete the loan application flow
     Then Select the Fraud Control page and Activate the FraudControl setting and verify the loan application flow
     And Select the Fraud Control page and InActivate the FraudControl setting and verify the loan application flow
     Then Select the Mask Initiate Wait Time Active and complete the loan application flow
     And Select the Mask Initiate Wait Time InActive and complete the loan application flow
+    Then Select Active on the Deny for Max Open QCash Loans Across Products setting and launch the loan application flow
+    And Select InActive on the Deny for Max Open QCash Loans Across Products setting and launch the loan application flow
 
     Examples: 
 
   @SanityCheck
-  Scenario Outline: Validate the Loan application flow for the CU                                                  # src/test/java/Features/SanitySuite.feature:31
-    Given Launch the FI "Vibe Credit Union" site "https://testadmin.q-cash.com/vibecu/Authentication/Login" urls   # SanitySuite_StepDefinition.Launch_the_FI_site_urls(String,String)
-    Given Enter the valid user credentials "<username>" and "<password>" to access the application                 # SanitySuite_StepDefinition.enter_the_valid_user_credentials_and_to_access_the_application(String,String)
+  Scenario Outline: Validate the Loan application flow for the CU                                                         # src/test/java/Features/SanitySuite.feature:36
+    Given Launch the FI "Vibe Credit Union" site "https://testadmin.q-cash.com/vibecu/Authentication/Login" urls          # SanitySuite_StepDefinition.Launch_the_FI_site_urls(String,String)
+    Given Enter the valid user credentials "<username>" and "<password>" to access the application                        # SanitySuite_StepDefinition.enter_the_valid_user_credentials_and_to_access_the_application(String,String)
+    Then Select the Maintenance Active and complete the loan application flow                                             # SanitySuite_StepDefinition.select_the_Maintenance_Active_and_complete_the_loan_application_flow()
+    And Select the Maintenance InActive and complete the loan application flow                                            # SanitySuite_StepDefinition.select_the_Maintenance_InActive_and_complete_the_loan_application_flow()
+    Then Select the Awareness page Active and complete the loan application flow                                          # SanitySuite_StepDefinition.select_the_Awareness_page_Active_and_complete_the_loan_application_flow()
