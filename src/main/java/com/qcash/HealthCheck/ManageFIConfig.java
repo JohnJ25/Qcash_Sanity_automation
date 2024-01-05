@@ -18,17 +18,17 @@ import com.qcash.utilities.Util;
 public class ManageFIConfig extends TestBase {
 	
 	
-	static String feebasedtext = "" ;
-	static String interstbasedtext ="";
-	static String FraudControlresend ="";
-	static String FraudControlSubmit ="";
-	static String FarudControlCodevalidity ="";	
-	static String Maxopenloanvalue ="";
+	public static String feebasedtext = "" ;
+	public static String interstbasedtext ="";
+	public static String FraudControlresend ="";
+	public static String FraudControlSubmit ="";
+	public static String FarudControlCodevalidity ="";	
+	public static String Maxopenloanvalue ="";
 	
 
 	static Logger logger = LogManager.getLogger(ManageFIConfig.class);
 	
-	public static void fIConfig() throws Exception, InterruptedException, IOException {
+	public static void manageFiConfig() throws Exception, InterruptedException, IOException {
 		try {
 			WebDriverWait waite = new WebDriverWait(driver, 120);
 			Util.waitForSeconds(5);
@@ -37,9 +37,11 @@ public class ManageFIConfig extends TestBase {
 				logger.info(Util.CUName + " - Home page menu list is displayed");
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("ManageFIConfig_Menu_Link"))));
 				getObject("ManageFIConfig_Menu_Link").click();
-				logger.info(Util.CUName + " - Manage Fi Configuration option is clicked");
-				Util.waitForPageToLoad();
-				logger.info(Util.CUName + " - Manage Fi Configuration page is displayed");
+							
+			   	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("PageTitle"))));
+            	String pagevalidation = driver.findElement(By.xpath(OR.getProperty("PageTitle"))).getText();
+            	logger.info(Util.CUName + "- Manage Fi Configuration page displayed and the title is : " + pagevalidation);                
+          
 			} else {
 				logger.error(Util.CUName + " - Home page menu list is not displayed");
 				Assert.assertTrue(false, "Home page menu list is not displayed");
@@ -62,9 +64,9 @@ public class ManageFIConfig extends TestBase {
 				logger.info(Util.CUName + " - FI config General tab is displayed");
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanApp_Menu_Link"))));
 				getObject("LoanApp_Menu_Link").click();
-				logger.info(Util.CUName + " - Fi Configuration Loan Application option is clicked");
+				logger.info(Util.CUName + " - The Loan Application setting is clicked from the ManageFiConfiguration page");
 				Util.waitForPageToLoad();
-				logger.info(Util.CUName + " - General Loan Application page is displayed");
+				logger.info(Util.CUName + " - The General Loan Application page is displayed");
 			} else {
 				logger.error(Util.CUName + " - General Loan Application page is not displayed");
 				Assert.assertTrue(false, "General Loan Application page is not displayed");
@@ -77,88 +79,33 @@ public class ManageFIConfig extends TestBase {
 	}
 	
 	
-	public static void maintenance() throws Exception, InterruptedException, IOException {
+	public static void maintenanceActive() throws Exception, InterruptedException, IOException {
 		
 		
 		try {
 			WebDriverWait waite = new WebDriverWait(driver, 120);
 			Util.waitForSeconds(5);
-			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("MaintenanceActive"))));
+			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralLink"))));
+			getObject("GeneralLink").click();
+			logger.info(Util.CUName + " - The General page is displayed");
 
-//				WebElement active  = driver.findElement(By.xpath(OR.getProperty("MaintenanceActive")));
-//				WebElement inactive  = driver.findElement(By.xpath(OR.getProperty("MaintenanceInActive")));
-				
-			
-//				Boolean radio = inactive.equals(active);
-				
-				 // Wait for the radio button to be clickable (ensuring it's interactable)
-//		        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		        WebElement inactive = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("MaintenanceInActive"))));
-		        WebElement active = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("MaintenanceActive"))));
-//
-//		        // Check if the radio button is displayed and enabled
-//		        if (inactive.isDisplayed() && inactive.isEnabled()) {
-//		            // Check if the radio button is selected
-//		            if (inactive.isSelected()) {
-//		                System.out.println("Radio Button InaActive is already selected");
-//		                active.click();	
-//		                
-//		            
-//		            } 
-//		            else {
-//		                System.out.println("Radio Button InaActive is not selected");
-//		                // Code to select the radio button if needed
-//		                // radioButton1.click();
-//		            }
-//		        } else {
-//		            System.out.println("Radio Button InActive is not displayed or not enabled");
-//		        }
-//		        
-//				
-//				if (!inactive.isSelected()) {
-//					
-//					System.out.println("button selected");
-					
-					active.click();
-					
-					logger.info(Util.CUName + " - Active Radio option is clicked"); // 
-					logger.info(Util.CUName + " - General Loan Application page is displayed");
-					
-					scrolldown();
-					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralPageSave"))));
-					getObject("GeneralPageSave").click();
-					logger.info(Util.CUName + " - General Loan Application page is saved");
-					
-					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
-					Boolean display = getObject("LoanSuccessMessage").isDisplayed();
-					Assert.assertTrue(true, "Validated sucess message");
-					
-					// the check box is checked or not - need verification
-					
-					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
-					getObject("Home_Breadcrumb_link").click();
-			
-					
-				//	Inctive.isSelected();
-					
-//					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("MaintenanceActive"))));
-//					logger.info(Util.CUName + " - Active Radio option is clicked"); // 
-//					scrolldown();
-//					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralPageSave"))));
-//					getObject("GeneralPageSave").click();
-//					logger.info(Util.CUName + " - General Loan Application page is saved");
-//					
-//					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
-//					Boolean displayy = getObject("LoanSuccessMessage").isDisplayed();
-//					Assert.assertTrue(true, "Validated sucess message");
-					
-					// the check box is checked or not - need verification
-					
-//					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
-//					getObject("Home_Breadcrumb_link").click();
-		//		}
-				
-				
+			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("MaintenanceActive"))));
+			WebElement active = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("MaintenanceActive"))));
+			active.click();
+			logger.info(Util.CUName + " - The maintenance Active radio button is clicked");
+			scrolldown();
+
+			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralPageSave"))));
+			getObject("GeneralPageSave").click();
+			logger.info(Util.CUName + " - The General Loan Application page is saved");
+
+			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
+			Boolean display = getObject("LoanSuccessMessage").isDisplayed();
+			Assert.assertTrue(true, "Validated success message");
+
+			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+			getObject("Home_Breadcrumb_link").click();
+			logger.info(Util.CUName + " - Naviagted back to dashboard page");
 				
 		} catch (Exception e) {
 			Util.takeScreenShot("LoanApp_Menu_Link");
@@ -166,94 +113,34 @@ public class ManageFIConfig extends TestBase {
 			Assert.assertTrue(false, "Manage Fi Configuration page is not displayed");
 		}
 	}
+	
+
 	
 	public static void maintenanceInactive() throws Exception, InterruptedException, IOException {
-		try {
-			WebDriverWait waite = new WebDriverWait(driver, 120);
-			Util.waitForSeconds(5);
-			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("maintain"))));
-		
-//				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("maintain"))));
-//				String txt = getObject("MaintenanceActive").getText();
-//				
-			Thread.sleep(2000);
-				WebElement listItem = driver.findElement((By.xpath(OR.getProperty("MaintenanceActive"))));
-
-				// Check if the list item is active based on a specific class or attribute
-				if (listItem.getAttribute("class").contains("custom radio")) {
-				    listItem.click();
-				}
-
-				    else
-				    {
-				    	
-				    	
-				    }
-				logger.info(Util.CUName + " - Radio option is clicked"); // 
-				logger.info(Util.CUName + " - General Loan Application page is displayed");
-				
-				scrolldown();
-				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralPageSave"))));
-				getObject("GeneralPageSave").click();
-				logger.info(Util.CUName + " - General Loan Application page is saved");
-				
-//				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
-//				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
-//				Assert.assertTrue(true, "Validated sucess message");
-//				
-				// the check box is checked or not - need verification
-				
-				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
-				getObject("Home_Breadcrumb_link").click();
-			
-				
-				
-				
-		} catch (Exception e) {
-			Util.takeScreenShot("LoanApp_Menu_Link");
-			logger.error(Util.CUName + " - Manage Fi Configuration page is not displayed");
-			Assert.assertTrue(false, "Manage Fi Configuration page is not displayed");
-		}
-	}
-	
-	
-	public static void maintenanceInactivetest() throws Exception, InterruptedException, IOException {
 		
 		
 		try {
 			WebDriverWait waite = new WebDriverWait(driver, 120);
 			Util.waitForSeconds(5);
-			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("MaintenanceActive"))));
+			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralLink"))));
+			getObject("GeneralLink").click();
+			logger.info(Util.CUName + " - The General page is displayed");
 
-		        WebElement inactive = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("MaintenanceInActive"))));
-					
-		        inactive.click();
-					
-					logger.info(Util.CUName + " - Active Radio option is clicked"); // 
-					logger.info(Util.CUName + " - General Loan Application page is displayed");
-					
-					scrolldown();
-					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralPageSave"))));
-					getObject("GeneralPageSave").click();
-					logger.info(Util.CUName + " - General Loan Application page is saved");
-					
-					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
-					Boolean display = getObject("LoanSuccessMessage").isDisplayed();
-					Assert.assertTrue(true, "Validated sucess message");
-					
-					
-					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
-					getObject("Home_Breadcrumb_link").click();
-			
-					logger.info(Util.CUName + " - Dashboard page is displayed");
+			WebElement inactive = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("MaintenanceInActive"))));
+			inactive.click();
+			logger.info(Util.CUName + " - The maintenance InActive radio button is clicked");
+			scrolldown();
+			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralPageSave"))));
+			getObject("GeneralPageSave").click();
+			logger.info(Util.CUName + " - The General Loan Application page is saved");
 
-					// the check box is checked or not - need verification
-					
-//					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
-//					getObject("Home_Breadcrumb_link").click();
-		//		}
-				
-				
+			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
+			Boolean display = getObject("LoanSuccessMessage").isDisplayed();
+			Assert.assertTrue(true, "Validated success message");
+
+			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+			getObject("Home_Breadcrumb_link").click();
+			logger.info(Util.CUName + " - Naviagted back to dashboard page");
 				
 		} catch (Exception e) {
 			Util.takeScreenShot("LoanApp_Menu_Link");
@@ -271,63 +158,38 @@ public static void awarenessActive() throws Exception, InterruptedException, IOE
 			Util.waitForSeconds(5);
 			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Financialcoaching"))));
 			getObject("Financialcoaching").click();
+			logger.info(Util.CUName + " - The Financial coaching page is displayed");
 
-		        WebElement inactive = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("AwarenesspageActive"))));
-					
-		        inactive.click();
-					
-					logger.info(Util.CUName + " - Active Radio option is clicked"); // 
-					logger.info(Util.CUName + " - General Loan Application page is displayed");
-					
-					
-					
-					//*************************
-					
-			   // waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("FeeBasedThresholdtext"))));			        
-			    
+		        WebElement active = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("AwarenesspageActive"))));
+		        active.click();
+		        logger.info(Util.CUName + " - The Awareness Active radio button is clicked"); 
+		        
+				
+		     // The fee based text box value copied and cleared the fee based text box
 			    WebElement feebasedbox = driver.findElement(By.xpath(OR.getProperty("FeeBasedThresholdtext")));
-			    
-			    
-			        feebasedtext = getObject("FeeBasedThresholdtext").getAttribute("value").trim();
+			    feebasedtext = getObject("FeeBasedThresholdtext").getAttribute("value").trim();
 	                getObject("FeeBasedThresholdtext").clear();
-	                logger.info(Util.CUName + " - feebased Text Box is cleared");
+	                logger.info(Util.CUName + " - The Awarness page fee based text box is cleared");
 	                feebasedbox.sendKeys("0");
 	                
-	            Thread.sleep(2000);    
-	              //  waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("InterestBasedThresholdtext"))));			        
-				    
-				    WebElement interestbasedbox = driver.findElement(By.xpath(OR.getProperty("InterestBasedThresholdtext")));
-				    
+	          // The interest based text box value copied and cleared the fee based text box
+			       WebElement interestbasedbox = driver.findElement(By.xpath(OR.getProperty("InterestBasedThresholdtext")));
 	               interstbasedtext = getObject("InterestBasedThresholdtext").getAttribute("value").trim();
 	               getObject("InterestBasedThresholdtext").clear();
-	               logger.info(Util.CUName + " -Interestbased Test Box is cleared");
+	               logger.info(Util.CUName + " - The Awerness page interest based test box is cleared");
 	               interestbasedbox.sendKeys("0");
-					
-					//***************
-					
-					
-					scrolldown();
 					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("AwarnessPageSave"))));
 					getObject("GeneralPageSave").click();
-					logger.info(Util.CUName + " - Awerness page is saved");
+					logger.info(Util.CUName + " - The Awerness page is saved");
 					
 					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
 					Boolean display = getObject("LoanSuccessMessage").isDisplayed();
 					Assert.assertTrue(true, "Validated sucess message");
 					
-					
 					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
 					getObject("Home_Breadcrumb_link").click();
-			
-					logger.info(Util.CUName + " - Dashboard page is displayed");
-
-					// the check box is checked or not - need verification
-					
-//					waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
-//					getObject("Home_Breadcrumb_link").click();
-		//		}
-				
-				
+					logger.info(Util.CUName + " - Naviagted back to dashboard page");
+		
 				
 		} catch (Exception e) {
 			Util.takeScreenShot("LoanApp_Menu_Link");
@@ -347,41 +209,31 @@ public static void awarenessINActive() throws Exception, InterruptedException, I
 		Util.waitForSeconds(5);
 		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Financialcoaching"))));
 		getObject("Financialcoaching").click();
-
-	        WebElement inactive = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("AwarenesspageInActive"))));
-				
+		logger.info(Util.CUName + " - The Financial coaching page is displayed");
+		
+	        WebElement inactive = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("AwarenesspageInActive"))));		
 	        inactive.click();
+	        logger.info(Util.CUName + " - The Awareness InActive radio button is clicked"); 
 				
-				logger.info(Util.CUName + " - Active Radio option is clicked"); // 
-				logger.info(Util.CUName + " - General Loan Application page is displayed");
-				
-				   //*************
+			
+	     // The feebased text box value cleared and restored with the original value
 				  WebElement feebasedbox = driver.findElement(By.xpath(OR.getProperty("FeeBasedThresholdtext")));
-				    
-				    
-			      //  feebasedtext = getObject("FeeBasedThresholdtext").getAttribute("value").trim();
-	                getObject("FeeBasedThresholdtext").sendKeys(feebasedtext);
-	                logger.info(Util.CUName + " - feebased Text Box value is restored");
+				  getObject("FeeBasedThresholdtext").clear();
+			      logger.info(Util.CUName + " - The Awarness fee based text box is cleared");
+			      feebasedbox.sendKeys(feebasedtext);
+	              logger.info(Util.CUName + " - The Awarness fee based text box value is restored");
 	               
-	                
-	            Thread.sleep(2000);    
-	              //  waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("InterestBasedThresholdtext"))));			        
-				    
+	              // The feebased text box value cleared and restored with the original value      
 				    WebElement interestbasedbox = driver.findElement(By.xpath(OR.getProperty("InterestBasedThresholdtext")));
-				    
-	              // interstbasedtext = getObject("InterestBasedThresholdtext").getAttribute("value").trim();
-	               getObject("InterestBasedThresholdtext").sendKeys(interstbasedtext);
-	               logger.info(Util.CUName + " -Interestbased Test Box value is restored");
+				    getObject("InterestBasedThresholdtext").clear();
+				    logger.info(Util.CUName + " - The Awarness interest based text box is cleared");
+				    interestbasedbox.sendKeys(interstbasedtext);
+	               logger.info(Util.CUName + " - The Awarness interest based Test Box value is restored");
 	               
-					
-	               //*************
 				
-				
-				
-				scrolldown();
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("AwarnessPageSave"))));
 				getObject("AwarnessPageSave").click();
-				logger.info(Util.CUName + " - Awerness page is saved");
+				logger.info(Util.CUName + " - The Awerness page is saved");
 				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
 				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
@@ -391,14 +243,7 @@ public static void awarenessINActive() throws Exception, InterruptedException, I
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
 				getObject("Home_Breadcrumb_link").click();
 		
-				logger.info(Util.CUName + " - Dashboard page is displayed");
-
-				// the check box is checked or not - need verification
-				
-//				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
-//				getObject("Home_Breadcrumb_link").click();
-	//		}
-			
+				logger.info(Util.CUName + " - Naviagted back to dashboard page");
 			
 			
 	} catch (Exception e) {
@@ -418,52 +263,41 @@ public static void fraudControlActive() throws Exception, InterruptedException, 
 		Util.waitForSeconds(5);
 		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("FraudControl"))));
 		getObject("FraudControl").click();
+		logger.info(Util.CUName + " - The Fraud control page is displayed");
 
-	        WebElement active = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("FraudControlActive"))));
-				
+	        WebElement active = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("FraudControlActive"))));				
 	        active.click();
-				
-				logger.info(Util.CUName + " - Active Radio option is clicked"); // 
-				logger.info(Util.CUName + " - Fraud control page is displayed");
-				
-				
-				
-				//*************************
-				
-		 
-		    WebElement FCresend = driver.findElement(By.xpath(OR.getProperty("FCresendThreshold")));
-		    
-		    
+			logger.info(Util.CUName + " - The Fraud Control Active radio button is clicked"); 
+			
+		 // The Resend text box value copied and cleared the Resend text box
+		    WebElement FCresend = driver.findElement(By.xpath(OR.getProperty("FCresendThreshold")));		    
 		    FraudControlresend = getObject("FCresendThreshold").getAttribute("value").trim();
                 getObject("FCresendThreshold").clear();
-                logger.info(Util.CUName + " - Resend Text Box is cleared");
+                logger.info(Util.CUName + " - The Fraud Control Resend text box value is cleared");
                 FCresend.sendKeys("2");
-                
-            Thread.sleep(1000);    
-             
+                logger.info(Util.CUName + " - The Fraud Control Resend text box value has been entered");
+                Util.waitForSeconds(5);        
+         // The Submit text box value copied and cleared the Submit text box
 			    WebElement FCsubmit = driver.findElement(By.xpath(OR.getProperty("FCsubmitThreshold")));
 			    
                FraudControlSubmit = getObject("FCsubmitThreshold").getAttribute("value").trim();
                getObject("FCsubmitThreshold").clear();
-               logger.info(Util.CUName + " -Submit threshold text box is cleared");
+               logger.info(Util.CUName + " - The Fraud Control Submit text box value is cleared");
                FCsubmit.sendKeys("2");
-               
-               Thread.sleep(1000);    
-               
+               logger.info(Util.CUName + " - The Fraud Control Submit text box value has been entered");
+     
+         // The CodeValidity text box value copied and cleared the CodeValidity text box     
                WebElement FCcodevalidity = driver.findElement(By.xpath(OR.getProperty("FCcodevalidity")));
 			    
                FarudControlCodevalidity = getObject("FCcodevalidity").getAttribute("value").trim();
                getObject("FCcodevalidity").clear();
-               logger.info(Util.CUName + " -Submit threshold text box is cleared");
+               logger.info(Util.CUName + " - The Fraud Control CodeValidity text box value is cleared");
                FCcodevalidity.sendKeys("5");
-               
-				//***************
-				
-				
-				scrolldown();
+               logger.info(Util.CUName + " - The Fraud Control CodeValidity text box value has been entered");
+               			
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("FCsave"))));
 				getObject("FCsave").click();
-				logger.info(Util.CUName + " - Fraud control page is saved");
+				logger.info(Util.CUName + " - The Fraud control page is saved");
 				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
 				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
@@ -472,16 +306,8 @@ public static void fraudControlActive() throws Exception, InterruptedException, 
 				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
 				getObject("Home_Breadcrumb_link").click();
-		
-				logger.info(Util.CUName + " - Dashboard page is displayed");
-
-				// the check box is checked or not - need verification
-				
-//				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
-//				getObject("Home_Breadcrumb_link").click();
-	//		}
-			
-			
+				logger.info(Util.CUName + " - Naviagted back to dashboard page");
+	
 			
 	} catch (Exception e) {
 		Util.takeScreenShot("LoanApp_Menu_Link");
@@ -499,73 +325,47 @@ public static void fraudControlInActive() throws Exception, InterruptedException
 		Util.waitForSeconds(5);
 		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("FraudControl"))));
 		getObject("FraudControl").click();
+		logger.info(Util.CUName + " - The Fraud control page is displayed");
 
-	        WebElement InActive = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("FraudContolInactive"))));
+        WebElement Inactive = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("FraudContolInactive"))));				
+        Inactive.click();
+		logger.info(Util.CUName + " - The Fraud Control InActive radio button is clicked"); 
 				
-	        InActive.click();
-				
-				logger.info(Util.CUName + " - Inactive Radio option is clicked"); // 
-				logger.info(Util.CUName + " - Fraud control page is displayed");
-				
-				
-				
-				//*************************
-				
-		 
+		// The Resend text box value cleared and restored with the original value
 		    WebElement FCresend = driver.findElement(By.xpath(OR.getProperty("FCresendThreshold")));
-		    
-		    
-		   // FraudControlresend = getObject("FCresendThreshold").getAttribute("value").trim();
                 getObject("FCresendThreshold").clear();
-                logger.info(Util.CUName + " - Resend Text Box is cleared");
+                logger.info(Util.CUName + " - The Fraud control Resend text box is cleared");
                 FCresend.sendKeys(FraudControlresend);
-                logger.info(Util.CUName + " - Resend Text Box is restored");
+                logger.info(Util.CUName + " - The Fraud control Resend text box value is restored");
                 
-            Thread.sleep(1000);    
+         // The Submit text box value cleared and restored with the original value
              
 			    WebElement FCsubmit = driver.findElement(By.xpath(OR.getProperty("FCsubmitThreshold")));
-			    
-              // FraudControlSubmit = getObject("FCsubmitThreshold").getAttribute("value").trim();
                getObject("FCsubmitThreshold").clear();
-               logger.info(Util.CUName + " -Submit threshold text box is cleared");
+               logger.info(Util.CUName + " - The Submit threshold text box is cleared");
                FCsubmit.sendKeys(FraudControlSubmit);
-               logger.info(Util.CUName + " -Submit threshold text box is restored");
+               logger.info(Util.CUName + " -The Submit threshold text box value is restored");
                
-               Thread.sleep(1000);    
+            // The CodeValidity text box value cleared and restored with the original value
                
                WebElement FCcodevalidity = driver.findElement(By.xpath(OR.getProperty("FCcodevalidity")));
-			    
-            //   FarudControlCodevalidity = getObject("FCcodevalidity").getAttribute("value").trim();
                getObject("FCcodevalidity").clear();
-               logger.info(Util.CUName + " -Submit threshold text box is cleared");
-               FCcodevalidity.sendKeys(FarudControlCodevalidity);
-               
-               logger.info(Util.CUName + " -Submit threshold text box is restored");
-				//***************
-				
-				
+               logger.info(Util.CUName + " - The Code Validity threshold text box is cleared");
+               FCcodevalidity.sendKeys(FarudControlCodevalidity);             
+               logger.info(Util.CUName + " - The Code Validity threshold text box value is restored");
 				scrolldown();
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("FCsave"))));
 				getObject("FCsave").click();
-				logger.info(Util.CUName + " - Fraud control page is saved");
+				logger.info(Util.CUName + " - The Fraud control page is saved");
 				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
 				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
 				Assert.assertTrue(true, "Validated sucess message");
-				
-				
-				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
-				getObject("Home_Breadcrumb_link").click();
-		
-				logger.info(Util.CUName + " - Dashboard page is displayed");
 
-				// the check box is checked or not - need verification
-				
-//				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
-//				getObject("Home_Breadcrumb_link").click();
-	//		}
-			
-			
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+				getObject("Home_Breadcrumb_link").click();	
+				logger.info(Util.CUName + " - Naviagted back to dashboard page");
+	
 			
 	} catch (Exception e) {
 		Util.takeScreenShot("LoanApp_Menu_Link");
@@ -582,35 +382,24 @@ public static void maskWaitActive() {
 		Util.waitForSeconds(5);
 		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralLink"))));
 		getObject("GeneralLink").click();
+		logger.info(Util.CUName + " - The Loan Application General page is displayed");
 
 	        WebElement active = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("MaskActive"))));
-				
 	        active.click();
-				
-				logger.info(Util.CUName + " - Active Radio option is clicked"); // 
-				logger.info(Util.CUName + " - General Loan Application page is displayed");
-				
-			
-				
-				//***************
-				
-				
+	        logger.info(Util.CUName + " - The Mask Wait Active radio button is clicked"); 
+						
 				scrolldown();
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralPageSave"))));
 				getObject("GeneralPageSave").click();
-				logger.info(Util.CUName + " - Loan application General page is saved");
+				logger.info(Util.CUName + " - The Loan application General page is saved");
 				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
 				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
 				Assert.assertTrue(true, "Validated sucess message");
 				
-				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
 				getObject("Home_Breadcrumb_link").click();
-		
-				logger.info(Util.CUName + " - Dashboard page is displayed");
-		
-						
+				logger.info(Util.CUName + " - Naviagted back to dashboard page");
 			
 	} catch (Exception e) {
 		Util.takeScreenShot("LoanApp_Menu_Link");
@@ -629,34 +418,24 @@ public static void maskWaitInActive() {
 		Util.waitForSeconds(5);
 		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralLink"))));
 		getObject("GeneralLink").click();
+		logger.info(Util.CUName + " - The Loan Application General page is displayed");
 
 	        WebElement inactive = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("MaskKInActive"))));
-				
 	        inactive.click();
-				
-				logger.info(Util.CUName + " - InActive Radio option is clicked"); // 
-				logger.info(Util.CUName + " - General Loan Application page is displayed");
-				
-			
-				
-				//***************
-				
+	        logger.info(Util.CUName + " - The Mask Wait InActive radio button is clicked"); 
 				
 				scrolldown();
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralPageSave"))));
 				getObject("GeneralPageSave").click();
-				logger.info(Util.CUName + " - Loan application General page is saved");
+				logger.info(Util.CUName + " - The Loan application General page is saved");
 				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
 				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
 				Assert.assertTrue(true, "Validated sucess message");
 				
-				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
 				getObject("Home_Breadcrumb_link").click();
-		
-				logger.info(Util.CUName + " - Dashboard page is displayed");
-		
+				logger.info(Util.CUName + " - Naviagted back to dashboard page");
 						
 			
 	} catch (Exception e) {
@@ -664,7 +443,6 @@ public static void maskWaitInActive() {
 		logger.error(Util.CUName + " - Manage Fi Configuration page is not displayed");
 		Assert.assertTrue(false, "Manage Fi Configuration page is not displayed");
 	}
-
 
 }
 
@@ -677,44 +455,35 @@ public static void MaximumOpenloanActive() {
 		Util.waitForSeconds(5);
 		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralLink"))));
 		getObject("GeneralLink").click();
+		logger.info(Util.CUName + " - The Loan Application General page is displayed");
 
 	        WebElement active = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("Maxopenloan"))));
-				
 	        active.click();
-				
-				logger.info(Util.CUName + " - Active Radio option is clicked"); // 
-				logger.info(Util.CUName + " - General Loan Application page is displayed");
+	        logger.info(Util.CUName + " - The Maximum open loan Active radio button is clicked"); 
 				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Maxopentextbox"))));
-		
-
-				  WebElement MaxloanTextbox = driver.findElement(By.xpath(OR.getProperty("Maxopentextbox")));
-				    
+				WebElement MaxloanTextbox = driver.findElement(By.xpath(OR.getProperty("Maxopentextbox")));
+				
+				// The Maxopenloan text box value copied and cleared the Maxopenloan text box
 	               Maxopenloanvalue = getObject("Maxopentextbox").getAttribute("value").trim();
 	               getObject("Maxopentextbox").clear();
-	               logger.info(Util.CUName + " -Submit threshold text box is cleared");
+	               logger.info(Util.CUName + " -The Maxopenloan text box is cleared");
 	               MaxloanTextbox.sendKeys("0");
 	               logger.info(Util.CUName + " - The Max Open QCash Loans Across Products value set as '0' ");
-				
-				//***************
-				
 				
 				scrolldown();
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralPageSave"))));
 				getObject("GeneralPageSave").click();
-				logger.info(Util.CUName + " - Loan application General page is saved");
+				logger.info(Util.CUName + " - The Loan application General page is saved");
 				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
 				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
 				Assert.assertTrue(true, "Validated sucess message");
 				
-				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
 				getObject("Home_Breadcrumb_link").click();
 		
-				logger.info(Util.CUName + " - Dashboard page is displayed");
-		
-						
+				logger.info(Util.CUName + " - Naviagted back to dashboard page");	
 			
 	} catch (Exception e) {
 		Util.takeScreenShot("LoanApp_Menu_Link");
@@ -734,32 +503,23 @@ public static void MaximumOpenloanInActive() {
 		Util.waitForSeconds(5);
 		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralLink"))));
 		getObject("GeneralLink").click();
-
-	        WebElement active = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("Maxopenloan"))));
-				
-	        active.click();
-				
-				logger.info(Util.CUName + " - Active Radio option is clicked"); // 
-				logger.info(Util.CUName + " - General Loan Application page is displayed");
-				
+		logger.info(Util.CUName + " - The Loan Application General page is displayed");
+	
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Maxopentextbox"))));
-		
-
-				  WebElement MaxloanTextbox = driver.findElement(By.xpath(OR.getProperty("Maxopentextbox")));
-				    
-	             
-	               getObject("Maxopentextbox").clear();
-	               logger.info(Util.CUName + " - The Max Open QCash Loans Across Products Text Box is cleared");
+				WebElement MaxloanTextbox = driver.findElement(By.xpath(OR.getProperty("Maxopentextbox")));
+				getObject("Maxopentextbox").clear();
+	               logger.info(Util.CUName + " - The Max Open QCash Loans Across Products text box is cleared");
 	               MaxloanTextbox.sendKeys(Maxopenloanvalue);
-                   logger.info(Util.CUName + " - The Max Open QCash Loans Across Products Text Box is restored");
+                   logger.info(Util.CUName + " - The Max Open QCash Loans Across Products text box is restored");
 				
-				//***************
-	                    
-				
+                WebElement Inactive = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("Maxopenloan"))));
+       	        Inactive.click();
+       	        logger.info(Util.CUName + " - The Maximum open loan InActive radio button is clicked"); 
+       				
 				scrolldown();
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("GeneralPageSave"))));
 				getObject("GeneralPageSave").click();
-				logger.info(Util.CUName + " - Loan application General page is saved");
+				logger.info(Util.CUName + " - The Loan application General page is saved");
 				
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
 				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
@@ -769,7 +529,7 @@ public static void MaximumOpenloanInActive() {
 				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
 				getObject("Home_Breadcrumb_link").click();
 		
-				logger.info(Util.CUName + " - Dashboard page is displayed");
+				logger.info(Util.CUName + " - Naviagted back to dashboard page");
 		
 						
 			

@@ -9,25 +9,24 @@ Feature: Qcash Application : Loan Application Flow Sanity Validation
   
   
   #Maintenance Page
-  Then Select the Maintenance Active and complete the loan application flow
-  And Select the Maintenance InActive and complete the loan application flow
+  Then Validate the loan application workflow when the Maintenance page is set to Active
+  And Validate the loan application workflow when the Maintenance page is set to InActive
     
   #Awareness Page 
-  Then Select the Awareness page Active and complete the loan application flow
-  And Select the Awareness page InActive and complete the loan application flow
-    
-    
+  Then Set the Awareness page to Activate and verify the loan application flow
+  And Set the Awareness page to InActivate and verify the loan application flow
+      
   #FraudControl
-  Then Select the Fraud Control page and Activate the FraudControl setting and verify the loan application flow
-  And Select the Fraud Control page and InActivate the FraudControl setting and verify the loan application flow
+  Then Set the Fraud Control to Activate and verify the loan application flow
+  And Set the Fraud Control to InActivate and verify the loan application flow
   
   #Mask Initiate Wait Time
-  Then Select the Mask Initiate Wait Time Active and complete the loan application flow
-  And Select the Mask Initiate Wait Time InActive and complete the loan application flow
+  Then Set the Mask Initiate Wait Time to Active and verify the loan application flow
+  And Set the Mask Initiate Wait Time to InActive and verify the loan application flow
     
   #AAN
-  Then Select Active on the Deny for Max Open QCash Loans Across Products setting and launch the loan application flow
-  And Select InActive on the Deny for Max Open QCash Loans Across Products setting and launch the loan application flow
+  Then Set the Deny for Max Open Loans Across Products to Active and verify the loan application flow
+  And Set the Deny for Max Open Loans Across Products to InActive and verify the loan application flow
   
   
    Examples:
