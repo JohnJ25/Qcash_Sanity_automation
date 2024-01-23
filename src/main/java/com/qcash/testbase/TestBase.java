@@ -626,4 +626,10 @@ public abstract class TestBase {
 		}
 	}
 
+	
+	public static void scrollIntoview() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+	    }
+	
 }

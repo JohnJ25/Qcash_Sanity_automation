@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite failures="0" name="cucumber.runtime.formatter.JUnitFormatter" skipped="0" tests="1" time="124.327681">
+<testcase classname="Qcash Application : Loan Application Flow Sanity Validation" name="Validate the Loan application flow for the CU" time="124.327681">
+<system-out><![CDATA[Given Launch the FI "Vibe Credit Union" site "https://testadmin.q-cash.com/vibecu/Authentication/Login" urls.passed
+Given Enter the valid user credentials "<username>" and "<password>" to access the application.passed
+Then Launch the loan application, complete the loan process, and verify the funding complete status..passed
+]]></system-out>
+</testcase>
+</testsuite>

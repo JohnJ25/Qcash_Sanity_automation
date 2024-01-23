@@ -1,5 +1,7 @@
 package StepDefinitions;
 
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -42,15 +44,7 @@ public class SanitySuite_StepDefinition extends TestBase {
 	public void enter_the_valid_user_credentials_and_to_access_the_application(String username, String password) {
 		try {
 			Util.waitForPageToLoad();
-			/*
-			 * getObject("Login_Username").sendKeys(username);
-			 * getObject("Login_Password").sendKeys(password);
-			 * getObject("Login_SigninButton").click();
-			 */
-
 			CommonFunctions.QCashInternalLogin(username, password);
-
-			// CommonFunctions.QCashLogin(username, password);
 
 		} catch (Exception e) {
 			Util.takeScreenShot("LoginValidation");
@@ -59,115 +53,180 @@ public class SanitySuite_StepDefinition extends TestBase {
 		}
 	}
 
-	
 
-@Then("From the application dashboard page select the manage fi configuration menu link")
-public void from_the_application_dashboard_page_select_the_manage_fi_configuration_menu_link() {
-  
-    try {
-		ManageFIConfig.fIConfig();
-		logger.info(Util.CUName + " - Manage fi configuration page is displayed");
-    	
+	
+@Then("Validate the loan application workflow when the Maintenance page is set to Active")
+public void Validate_the_loan_application_workflow_when_the_Maintenance_page_is_set_to_Active() throws InterruptedException, IOException, Exception {
+	
+	try {
+		
+		ManageFIConfig.manageFiConfig();
+		ManageFIConfig.fIconfigLoanApplication();
+		ManageFIConfig.maintenanceActive();
+		QATestSuitePageFunctions.WebTestPrimarySecondaryMaintenanceValidation();
+		
+		
 	} catch (Exception e) {
 		Util.takeScreenShot("");
-		logger.error(Util.CUName + " - Manage fi configuration Menu link is not clicked");
-		Assert.assertTrue(false, "Manage fi configuration Menu link is not clicked");
+		logger.error(Util.CUName + " - The Maintenance Page Active setting is not working");
+		Assert.assertTrue(false, "The Maintenance Page Active setting is not working");
+	}
+		
+	
+	
+}
+
+@Then("Validate the loan application workflow when the Maintenance page is set to InActive")
+public void Validate_the_loan_application_workflow_when_the_Maintenance_page_is_set_to_InActive() throws InterruptedException, IOException, Exception {
+  
+	try{
+	   ManageFIConfig.manageFiConfig();
+	   ManageFIConfig.fIconfigLoanApplication();
+	   ManageFIConfig.maintenanceInactive();
+	   QATestSuitePageFunctions.WebTestPrimarySecondaryMaintenanceValidation();
+	
+} catch (Exception e) {
+	Util.takeScreenShot("");
+	logger.error(Util.CUName + " - The Maintenance Page Inactive setting is not working");
+	Assert.assertTrue(false, "The Maintenance page Inactive setting is not working");
+}
+}
+	
+@Then("Set the Awareness page to Activate and verify the loan application flow")
+public void Set_the_Awareness_page_to_Activate_and_verify_the_loan_application_flow() {
+  try {
+	  ManageFIConfig.manageFiConfig();
+	   ManageFIConfig.fIconfigLoanApplication();
+	   ManageFIConfig.awarenessActive();
+	   QATestSuitePageFunctions.WebTestPrimarySecondaryAwarnessValidation();
+} catch (Exception e) {
+	Util.takeScreenShot("");
+	logger.error(Util.CUName + " - The Awarness Page Active setting is not working");
+	Assert.assertTrue(false, "The Awarness Page Active setting is not working");
+}
+  
+}
+
+@Then("Set the Awareness page to InActivate and verify the loan application flow")
+public void Set_the_Awareness_page_to_InActivate_and_verify_the_loan_application_flow() {
+  try {
+	  ManageFIConfig.manageFiConfig();
+	   ManageFIConfig.fIconfigLoanApplication();
+	   ManageFIConfig.awarenessINActive();
+	   QATestSuitePageFunctions.WebTestPrimarySecondaryAwarnessValidation();
+} catch (Exception e) {
+	Util.takeScreenShot("");
+	logger.error(Util.CUName + " - The Awarness Page Active setting is working");
+	Assert.assertTrue(false, "The Awarness Page Active setting is working");
+}
+}
+
+
+@Then("Set the Fraud Control to Activate and verify the loan application flow")
+public void Set_the_Fraud_Control_to_Activate_and_verify_the_loan_application_flow() {
+   
+	try {
+		  ManageFIConfig.manageFiConfig();
+		  ManageFIConfig.fIconfigLoanApplication();
+		  ManageFIConfig.fraudControlActive();
+		  QATestSuitePageFunctions.WebTestPrimarySecondaryFraudcontrolValidation();
+		   
+	} catch (Exception e) {
+		Util.takeScreenShot("");
+		logger.error(Util.CUName + " - The Fraud control page active setting is working");
+		Assert.assertTrue(false, "The Fraud control page active setting is working");
 	}
 }
 
-@When("Click on the loan application menu link")
-public void click_on_the_loan_application_menu_link() {
+@Then("Set the Fraud Control to InActivate and verify the loan application flow")
+public void Set_the_Fraud_Control_to_InActivate_and_verify_the_loan_application_flow() {
+   try {
+		  ManageFIConfig.manageFiConfig();
+		  ManageFIConfig.fIconfigLoanApplication();
+		  ManageFIConfig.fraudControlInActive();
+		  QATestSuitePageFunctions.WebTestPrimarySecondaryFraudcontrolValidation();
+} catch (Exception e) {
+	Util.takeScreenShot("");
+	logger.error(Util.CUName + " - The Fraud control page Inactive setting is working");
+	Assert.assertTrue(false, "The Fraud control page Inactive setting is working");
+}
+}
+
+
+@Then("Set the Mask Initiate Wait Time to Active and verify the loan application flow")
+public void Set_the_Mask_Initiate_Wait_Time_to_Active_and_verify_the_loan_application_flow() throws InterruptedException, IOException, Exception {
 	   try {
-		   ManageFIConfig.fIconfigLoanApplication();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			  ManageFIConfig.manageFiConfig();
+			  ManageFIConfig.fIconfigLoanApplication();
+			  ManageFIConfig.maskWaitActive();
+			  QATestSuitePageFunctions.WebTestPrimarySecondaryMaskwaitValidation();
+	} catch (Exception e) {
+		Util.takeScreenShot("");
+		logger.error(Util.CUName + " - The mask initiate wait page active setting is working");
+		Assert.assertTrue(false, "The mask initiate wait page active setting is working");
+	}
 }
 
-@When("Set the maintenance to active or inactive and save the page")
-public void Set_the_maintenance_to_active_or_inactive_and_save_the_page() {
+@Then("Set the Mask Initiate Wait Time to InActive and verify the loan application flow")
+public void Set_the_Mask_Initiate_Wait_Time_to_InActive_and_verify_the_loan_application_flow() {
 	   try {
-		 //  ManageFIConfig.maintenance();
-		   ManageFIConfig.maintenanceInactive();
-		   
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			  ManageFIConfig.manageFiConfig();
+			  ManageFIConfig.fIconfigLoanApplication();
+			  ManageFIConfig.maskWaitInActive();
+			  QATestSuitePageFunctions.WebTestPrimarySecondaryMaskwaitValidation();
+	} catch (Exception e) {
+		Util.takeScreenShot("");
+		logger.error(Util.CUName + " - The mask initiate wait page active setting is working");
+		Assert.assertTrue(false, "The mask initiate wait page Inactive setting is working");
+	}
 }
 
-@Then("Nagivate back to the application dashboard page and select the QA Test suite page")
-public void nagivate_back_to_the_application_dashboard_page_and_select_the_QA_Test_suite_page() {
+
+@Then("Set the Deny for Max Open Loans Across Products to Active and verify the loan application flow")
+public void Set_the_Deny_for_Max_Open_Loans_Across_Products_to_Active_and_verify_the_loan_application_flow() {
 	   try {
-			
-		   QATestSuitePageFunctions.WebTestPrimarySecondaryValidation();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			  ManageFIConfig.manageFiConfig();
+			  ManageFIConfig.fIconfigLoanApplication();
+			  ManageFIConfig.MaximumOpenloanActive();
+			  QATestSuitePageFunctions.WebTestPrimarySecondaryAANValidation();
+	} catch (Exception e) {
+		Util.takeScreenShot("");
+		logger.error(Util.CUName + " - The AAN active setting is working");
+		Assert.assertTrue(false, "The AAN active setting is working");
+	}
 }
 
-@Then("Click on the web test primary and secondary and verify the manintenance page")
-public void click_on_the_web_test_primary_and_secondary_and_verify_the_manintenance_page() {
+@Then("Set the Deny for Max Open Loans Across Products to InActive and verify the loan application flow")
+public void Set_the_Deny_for_Max_Open_Loans_Across_Products_to_InActive_and_verify_the_loan_application_flow() {
 	   try {
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-/*
- * @Given("From the application dashboard page select the system status menu link"
- * ) // StatusMenuNavigationCheck public void
- * from_the_application_dashboard_page_select_the_system_status_menu_link() {
- * try { NCRStatusPageFunctions.StatusMenu(); logger.info(Util.CUName +
- * " - Status Menu is displayed"); } catch (Exception e) {
- * Util.takeScreenShot("StatusMenuNavigationCheck"); logger.error(Util.CUName +
- * " - Status Menu link is not clicked"); Assert.assertTrue(false,
- * "Status Menu link is not clicked"); }
- * 
- * }
- * 
- * @When("Click on the refresh button and check the system status is stable") //
- * RefreshButtonClick public void
- * Click_on_the_refresh_button_and_check_the_system_status_is_stable() { try {
- * NCRStatusPageFunctions.PageRefresh();
- * 
- * } catch (Exception e) { e.printStackTrace();
- * Util.takeScreenShot("RefreshButtonClick"); logger.error(Util.CUName +
- * " - Issue with System status Refresh"); Assert.assertTrue(false,
- * "Issue with System status Refresh"); } }
- * 
- * @Then("validate the NCR certificate primary and secondary regions are stable"
- * ) // PrimaryandSecondaryRegionStatus public void
- * validate_the_NCR_certificate_primary_and_secondary_regions_are_stable() { try
- * { scrolldown(); //
- * NCRStatusPageFunctions.PrimaryandSecondaryRegionStatus("NcrTable", //
- * "PrimaryNcrStatus"); //
- * NCRStatusPageFunctions.PrimaryandSecondaryRegionStatus("AdminFooterLogo",
- * "Primary_SysStatus"); //
- * NCRStatusPageFunctions.PrimaryandSecondaryRegionNCRStatus("NcrTable",
- * "PrimaryNcrStatus"); //
- * TestSuitePageFunction.PrimaryandSecondaryRegionNCRStatus(v, en);
- * logger.info(Util.CUName +
- * " - Primary and Secondary region status are validated");
- * QATestSuitePageFunctions.ValidatevaluesinQATestsuitePageAfterPagerefresh();
- * QATestSuitePageFunctions.WebTestPrimarySecondaryValidation(); } catch
- * (Exception e) { Util.takeScreenShot("PrimaryandSecondaryRegionStatus");
- * logger.error(Util.CUName +
- * " - Primary and Secondary region status are  stable");
- * Assert.assertTrue(false, "Primary and Secondary region status are  stable");
- * } }
- */
-
-
+			  ManageFIConfig.manageFiConfig();
+			  ManageFIConfig.fIconfigLoanApplication();
+			  ManageFIConfig.MaximumOpenloanInActive();
+			  QATestSuitePageFunctions.WebTestPrimarySecondaryAANValidation();
+	} catch (Exception e) {
+		Util.takeScreenShot("");
+		logger.error(Util.CUName + " - The AAN Inactive setting is working");
+		Assert.assertTrue(false, "The AAN Inactive setting is working");
+	}
 
 }
+
+@Then("Launch the loan application, complete the loan process, and verify the funding complete status.")
+public void launch_the_loan_application_complete_the_loan_process_and_verify_the_funding_complete_status() throws InterruptedException, IOException, Exception {
+
+	QATestSuitePageFunctions.LoanlaunchandFundingComplete();
+	
+}
+
+@Then("Set the Denial Exclusion to Active and verify the loan application flow")
+public void set_the_Denial_Exclusion_to_Active_and_verify_the_loan_application_flow() {
+ 
+}
+
+@Then("Set the Denial Exclusion to InActive and verify the loan application flow")
+public void set_the_Denial_Exclusion_to_InActive_and_verify_the_loan_application_flow() {
+    
+}
+
+}
+

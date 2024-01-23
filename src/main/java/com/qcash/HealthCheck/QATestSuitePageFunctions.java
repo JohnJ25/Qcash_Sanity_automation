@@ -1,6 +1,10 @@
 package com.qcash.HealthCheck;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import javax.xml.xpath.XPath;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -303,7 +307,7 @@ public class QATestSuitePageFunctions extends TestBase {
    
 
 
-    public static void WebTestPrimarySecondaryValidation() throws Exception, InterruptedException, IOException {
+    public static void WebTestPrimarySecondaryMaintenanceValidation() throws Exception, InterruptedException, IOException {
         SoftAssert softassert = new SoftAssert();
 
         boolean FundYesRadioBtn = false;
@@ -363,96 +367,105 @@ public class QATestSuitePageFunctions extends TestBase {
                 spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
                 Util.waitForSeconds(2);
 
-                if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
-                    logger.info(Util.CUName + " - Member View Tab is active");
-                    WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
-                    driver.switchTo().frame(FrameWindow);
-
-                    waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("MaintenanceValidation"))));
-                    String maintenancepage = getObject("MaintenanceValidation").getText();
-                    logger.info(Util.CUName + " - The Maintenance page is displayed in web test Primary and the title is : " + maintenancepage);
-                    Util.takeScreenShot("maintenancepage");
-                    softassert.assertTrue(true, "The Maintenance page is displayed in web test Primary and the title is : " + maintenancepage);
-                } else {
-                	getObject("MemberView_Tab").getAttribute("class").contains("is-active");
-                	 logger.info(Util.CUName + " - Member View Tab is active");
-                	 WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
-                     driver.switchTo().frame(FrameWindow);
-                     
-                     waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Loanlandingpagevalidation"))));
-                     String Loanlandingpage = getObject("Loanlandingpagevalidation").getText();
-                     
-                    logger.info(Util.CUName + " - Web test Primary : The loan application form is displayed successfully..." + Loanlandingpage);
-                    Util.takeScreenShot("WebTestPrimarySuccess");
-                    softassert.assertTrue(true, "Web test Primary : The loan application form is displayed successfully..." + Loanlandingpage);
-                }
-
-                driver.switchTo().defaultContent();
-            } else if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
-                int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
-                if (redalertfailtxt != 0) {
-                    String RedAlertText = getObject("Red_Alert_FailText").getText();
-                    logger.info(Util.CUName + " - Web test primary is not loaded and red alert message is shown");
-                    logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
-                    Util.takeScreenShot("PrimaryWebTestRedAlert");
-                    softassert.assertTrue(false, Util.CUName + "Web test primary is not loaded and red alert message is shown");
-                }
-            }
-
-            // Web test secondary
-            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Setup_Tab"))));
-            getObject("Setup_Tab").click();
-            logger.info(Util.CUName + " - Setup tab is clicked in QA test suite page");
-
-            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("WebTestSec_Btn"))));
-            getObject("WebTestSec_Btn").click();
-            logger.info(Util.CUName + " - WEB Test - Secondary button is clicked");
-            spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
-            Util.waitForSeconds(2);
-
-            if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
+                if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
+                    int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
+                    if (redalertfailtxt != 0) {
+                        String RedAlertText = getObject("Red_Alert_FailText").getText();
+                        logger.info(Util.CUName + " - Web test primary is not loaded and red alert message is shown");
+                        logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
+                        Util.takeScreenShot("PrimaryWebTestRedAlert");
+                        softassert.assertTrue(false, Util.CUName + "Web test primary is not loaded and red alert message is shown");
+                    }
+			}
+            else if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
+            	
                 logger.info(Util.CUName + " - Member View Tab is active");
                 WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
+              
                 driver.switchTo().frame(FrameWindow);
-
-                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("MaintenanceValidation"))));
-                String maintenancepage = getObject("MaintenanceValidation").getText();
-                logger.info(Util.CUName + " - The Maintenance page is displayed in web test Secondary and the title is : " + maintenancepage);
+  
+               
+                boolean maintenanceCheck  = driver.getPageSource().contains("Maintenance");                                                
+              
+                if (maintenanceCheck) { 
+                String maintenancepage  = getObject("MaintenanceValidation").getText();
+                logger.info(Util.CUName + " - Web test Primary : The Maintenance page is displayed and the title is : " + maintenancepage);
                 Util.takeScreenShot("maintenancepage");
-                softassert.assertTrue(true, "The Maintenance page is displayed in web test Secondary and the title is : " + maintenancepage);
-            } else {
-            	
-            	getObject("MemberView_Tab").getAttribute("class").contains("is-active");
-           	    logger.info(Util.CUName + " - Member View Tab is active");
-           	    WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
-                driver.switchTo().frame(FrameWindow);
-                
-                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Loanlandingpagevalidation"))));
-                String Loanlandingpage = getObject("Loanlandingpagevalidation").getText();
-                
-                logger.info(Util.CUName + " - Web test Secondary : The loan application form is displayed successfully..." + Loanlandingpage);
-                Util.takeScreenShot("WebTestSecondarySuccess");
-                softassert.assertTrue(true, "Web test Secondary : The loan application form is displayed successfully..." + Loanlandingpage);
+                softassert.assertTrue(true, "Web test Primary : The Maintenance page is displayed and the title is : " + maintenancepage);
+           
+            } else {               	
+            	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Loanlandingpagevalidation"))));
+                String Loanapplicationlandingpage = getObject("Loanlandingpagevalidation").getText(); 
+                logger.info(Util.CUName + " - Web test Primary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);           
+                softassert.assertTrue(true, "Web test Primary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);                
             }
-
             driver.switchTo().defaultContent();
+			}
+        }    
+                
+            // Web Test Secondary
+			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Setup_Tab"))));
+			getObject("Setup_Tab").click();
+			logger.info(Util.CUName + " - Setup tab is clicked in QA test suite page");
 
-            QATestSuitePageFunctions.RevertEmailandFundoptions();
+			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("WebTestSec_Btn"))));
+			getObject("WebTestSec_Btn").click();
+			logger.info(Util.CUName + " - WEB Test - Secondary button is clicked");
 
-            logger.info(Util.CUName + " - Web Test Primary and Secondary have been validated.");
+			spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
+			Util.waitForSeconds(2);
 
-            softassert.assertAll();
-        } catch (Exception e) {
-            Util.takeScreenShot("QATestSuiteFieldCheck");
-            logger.error(Util.CUName + " - QA test suite page is not displayed");
+			if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
+				int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
+				if (redalertfailtxt != 0) {
+					String RedAlertText = getObject("Red_Alert_FailText").getText();
+					logger.info(Util.CUName + " - Web test primary is not loaded and red alert message is shown");
+					logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
+					Util.takeScreenShot("PrimaryWebTestRedAlert");
+					softassert.assertTrue(false,Util.CUName + "Web test Secondary is not loaded and red alert message is shown");
+				}
+			} else if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
 
-            QATestSuitePageFunctions.RevertEmailandFundoptions();
+				logger.info(Util.CUName + " - Member View Tab is active");
+				WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
 
-            Assert.assertTrue(false, Util.CUName + "QA test suite page is not displayed");
-        }
-    }
+				driver.switchTo().frame(FrameWindow);
 
-       
+				boolean maintenanceCheck = driver.getPageSource().contains("Maintenance");
+
+				if (maintenanceCheck) {
+					String maintenancepage = getObject("MaintenanceValidation").getText();
+					logger.info(Util.CUName + " - Web test Secondary : The Maintenance page is displayed and the title is : " + maintenancepage);
+					Util.takeScreenShot("maintenancepage");
+					softassert.assertTrue(true," Web test Secondary : The Maintenance page is displayed and the title is : " + maintenancepage);
+
+				} else {
+					waite.until(ExpectedConditions
+							.visibilityOfElementLocated(By.xpath(OR.getProperty("Loanlandingpagevalidation"))));
+					String Loanapplicationlandingpage = getObject("Loanlandingpagevalidation").getText();
+					logger.info(Util.CUName + " - Web test Secondary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);
+					softassert.assertTrue(true," Web test Secondary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);
+				}
+
+				driver.switchTo().defaultContent();
+			}
+			QATestSuitePageFunctions.RevertEmailandFundoptions();
+
+			waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+			getObject("Home_Breadcrumb_link").click();
+			logger.info(Util.CUName + " - Web Test Primary and Secondary have been validated.");
+
+			logger.info(Util.CUName + " - switched to home page.");
+
+		} catch (Exception e) {
+			Util.takeScreenShot("QATestSuiteFieldCheck");
+			logger.error(Util.CUName + " - QA test suite page is not displayed");
+
+			QATestSuitePageFunctions.RevertEmailandFundoptions();
+
+			Assert.assertTrue(false, Util.CUName + "QA test suite page is not displayed");
+		}
+	}
     
     
     public static void RevertEmailandFundoptions() throws Exception, InterruptedException, IOException {
@@ -627,5 +640,925 @@ public class QATestSuitePageFunctions extends TestBase {
              Assert.assertTrue(false, Util.CUName + "QA test suite page is not displayed");
         }
     }
+    
+    
+    public static void WebTestPrimarySecondaryAwarnessValidation() throws Exception, InterruptedException, IOException {
+        SoftAssert softassert = new SoftAssert();
+
+        boolean FundYesRadioBtn = false;
+
+        try {
+            WebDriverWait spinnerwait = new WebDriverWait(driver, 120);
+            WebDriverWait waite = new WebDriverWait(driver, 90);
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("QATestSuite_Link"))));
+            getObject("QATestSuite_Link").click();
+            Util.waitForSeconds(2);
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Index_Text"))));
+
+            if (driver.getCurrentUrl().contains("SSOTestSetup")) {
+                logger.info(Util.CUName + " - QA Test Suite - SetUp tab is enabled");
+
+                WebElement radioElement = driver.findElement(By.id("FundYes"));
+                FundYesRadioBtn = radioElement.isSelected();
+
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Fund_No_Radiobtn"))));
+                getObject("Fund_No_Radiobtn").click();
+                logger.info(Util.CUName + " - Fund No Radio button is clicked");
+                Util.waitForSeconds(2);
+
+                if (Util.CUName.equals("TEXAS PLAINS FCU")) {
+                    BaseAccountID = getObject("BaseAccount_Txtbox").getAttribute("value").trim();
+                    logger.info(Util.CUName + " - " + BaseAccountID);
+                    Util.takeScreenShot("QATestSuite-OriginalBaseAccountID");
+
+                    getObject("BaseAccount_Txtbox").clear();
+                    logger.info(Util.CUName + " - BaseAccount ID is cleared");
+                    Util.waitForSeconds(2);
+                    String BaseAcctobeTested = CONFIG.getProperty("TexasBaseAccIDtobetested");
+                    logger.info(Util.CUName + " - " + BaseAcctobeTested);
+                    getObject("BaseAccount_Txtbox").sendKeys(BaseAcctobeTested);
+                } else {
+                    logger.info(Util.CUName + " - BaseAccount ID is not modified");
+                }
+
+                EmailText = getObject("QATestSuite_Email_Textbox").getAttribute("value").trim();
+                getObject("QATestSuite_Email_Textbox").clear();
+                logger.info(Util.CUName + " - Email Text Box is cleared");
+
+                getPhoneNo = getObject("PhoneNo_Txtbox").getAttribute("value").trim();
+                getObject("PhoneNo_Txtbox").clear();
+                logger.info(Util.CUName + " - PhoneNo Text Box is cleared");
+
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("QATestSuite_Save_Btn"))));
+                getObject("QATestSuite_Save_Btn").click();
+                logger.info(Util.CUName + " - Save button is clicked");
+
+                logger.info(Util.CUName + " - Settings updated successfully message is displayed");
+
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("WebTestPrimary_Btn"))));
+                getObject("WebTestPrimary_Btn").click();
+                logger.info(Util.CUName + " - WEB Test - Primary button is clicked");
+
+                spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
+                Util.waitForSeconds(2);
+                
+                if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
+                        int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
+                        if (redalertfailtxt != 0) {
+                            String RedAlertText = getObject("Red_Alert_FailText").getText();
+                            logger.info(Util.CUName + " - Web test primary is not loaded and red alert message is shown");
+                            logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
+                            Util.takeScreenShot("PrimaryWebTestRedAlert");
+                            softassert.assertTrue(false, Util.CUName + "Web test primary is not loaded and red alert message is shown");
+                        }
+				}
+                else if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
+                	
+                    logger.info(Util.CUName + " - Member View Tab is active");
+                    WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
+                  
+                    driver.switchTo().frame(FrameWindow);
+      
+                    waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("AwarnessLoanlandingpage"))));
+                    String Loanapplicationlandingpage = getObject("AwarnessLoanlandingpage").getText(); 
+                    logger.info(Util.CUName + " - Web test Primary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);           
+                    softassert.assertTrue(true, "Web test Primary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);
+               
+                    waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("loanpageCheckbox"))));
+                    getObject("loanpageCheckbox").click();
+                    logger.info(Util.CUName + " - Web test Primary : The loan application form check box is clicked successfully...");
+                    
+                    waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("BeginApplicationbutton"))));
+                    getObject("BeginApplicationbutton").click();
+                    logger.info(Util.CUName + " - Web test Primary : The Begin Application button is clicked successfully...");
+                    
+                    boolean awarenessCheck = driver.getPageSource().contains("Awareness");                                                
+                  
+                    if (awarenessCheck) { 
+                    String awarenessTextElement = getObject("loanpageAwarenessText").getText();
+                    logger.info(Util.CUName + " - Web test Primary : The Awareness page is displayed and the title is : " + awarenessTextElement);
+                    Util.takeScreenShot("loanpageAwarenessText");
+                    softassert.assertTrue(true, "Web test Primary : The Awareness page is displayed and the title is : " + awarenessTextElement);
+               
+                } else {               	
+                	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Title"))));
+                	String attribute = driver.findElement(By.xpath(OR.getProperty("Title"))).getText();
+                	logger.info(Util.CUName + "- Web test Primary : The Awareness page is not displayed and the displayed page is : " + attribute);                
+                }
+                driver.switchTo().defaultContent();
+				}
+            }
+            
+
+            // Web test secondary
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Setup_Tab"))));
+            getObject("Setup_Tab").click();
+            logger.info(Util.CUName + " - Setup tab is clicked in QA test suite page");
+
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("WebTestSec_Btn"))));
+            getObject("WebTestSec_Btn").click();
+            logger.info(Util.CUName + " - WEB Test - Secondary button is clicked");
+            
+            spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
+            Util.waitForSeconds(2);
+            
+            if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
+                    int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
+                    if (redalertfailtxt != 0) {
+                        String RedAlertText = getObject("Red_Alert_FailText").getText();
+                        logger.info(Util.CUName + " - Web test primary is not loaded and red alert message is shown");
+                        logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
+                        Util.takeScreenShot("PrimaryWebTestRedAlert");
+                        softassert.assertTrue(false, Util.CUName + "Web test primary is not loaded and red alert message is shown");
+                    }
+			}
+            else if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
+            	
+                logger.info(Util.CUName + " - Member View Tab is active");
+                WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
+              
+                driver.switchTo().frame(FrameWindow);
+  
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("AwarnessLoanlandingpage"))));
+                String Loanapplicationlandingpage = getObject("AwarnessLoanlandingpage").getText(); 
+                logger.info(Util.CUName + " - Web test Secondary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);           
+                softassert.assertTrue(true, "Web test Secondary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);
+           
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("loanpageCheckbox"))));
+                getObject("loanpageCheckbox").click();
+                logger.info(Util.CUName + " - Web test Secondary : The loan application form check box is clicked successfully...");
+                
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("BeginApplicationbutton"))));
+                getObject("BeginApplicationbutton").click();
+                logger.info(Util.CUName + " - Web test Secondary : The Begin Application button is clicked successfully...");
+                
+                boolean awarenessCheck = driver.getPageSource().contains("Awareness");                                                
+              
+                if (awarenessCheck) { 
+                String awarenessTextElement = getObject("loanpageAwarenessText").getText();
+                logger.info(Util.CUName + " - Web test Secondary : The Awareness page is displayed and the title is : " + awarenessTextElement);
+                Util.takeScreenShot("loanpageAwarenessText");
+                softassert.assertTrue(true, "Web test Secondary : The Awareness page is displayed and the title is : " + awarenessTextElement);
+           
+            } else {               	
+            	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Title"))));
+            	String attribute = driver.findElement(By.xpath(OR.getProperty("Title"))).getText();
+            	logger.info(Util.CUName + "- Web test Secondary : The Awareness page is not displayed and the displayed page is : " + attribute);                
+            }
+            }
+        
+            driver.switchTo().defaultContent();
+
+         QATestSuitePageFunctions.RevertEmailandFundoptions();
+
+          waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+		getObject("Home_Breadcrumb_link").click();
+            logger.info(Util.CUName + " - Web Test Primary and Secondary have been validated.");
+    		logger.info(Util.CUName + " - switched to home page.");
+        
+    		
+        } catch (Exception e) {
+            Util.takeScreenShot("QATestSuiteFieldCheck");
+            logger.error(Util.CUName + " - QA test suite page is not displayed");
+
+           QATestSuitePageFunctions.RevertEmailandFundoptions();
+
+            Assert.assertTrue(false, Util.CUName + "QA test suite page is not displayed");
+        }
+    }
+
+    
+    public static void WebTestPrimarySecondaryFraudcontrolValidation() throws Exception, InterruptedException, IOException {
+        SoftAssert softassert = new SoftAssert();
+
+        boolean FundYesRadioBtn = false;
+
+        try {
+            WebDriverWait spinnerwait = new WebDriverWait(driver, 120);
+            WebDriverWait waite = new WebDriverWait(driver, 90);
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("QATestSuite_Link"))));
+            getObject("QATestSuite_Link").click();
+            Util.waitForSeconds(2);
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Index_Text"))));
+
+            if (driver.getCurrentUrl().contains("SSOTestSetup")) {
+                logger.info(Util.CUName + " - QA Test Suite - SetUp tab is enabled");
+
+                WebElement radioElement = driver.findElement(By.id("FundYes"));
+                FundYesRadioBtn = radioElement.isSelected();
+
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Fund_No_Radiobtn"))));
+                getObject("Fund_No_Radiobtn").click();
+                logger.info(Util.CUName + " - Fund No Radio button is clicked");
+                Util.waitForSeconds(2);
+
+                if (Util.CUName.equals("TEXAS PLAINS FCU")) {
+                    BaseAccountID = getObject("BaseAccount_Txtbox").getAttribute("value").trim();
+                    logger.info(Util.CUName + " - " + BaseAccountID);
+                    Util.takeScreenShot("QATestSuite-OriginalBaseAccountID");
+
+                    getObject("BaseAccount_Txtbox").clear();
+                    logger.info(Util.CUName + " - BaseAccount ID is cleared");
+                    Util.waitForSeconds(2);
+                    String BaseAcctobeTested = CONFIG.getProperty("TexasBaseAccIDtobetested");
+                    logger.info(Util.CUName + " - " + BaseAcctobeTested);
+                    getObject("BaseAccount_Txtbox").sendKeys(BaseAcctobeTested);
+                } else {
+                    logger.info(Util.CUName + " - BaseAccount ID is not modified");
+                }
+
+                EmailText = getObject("QATestSuite_Email_Textbox").getAttribute("value").trim();
+                getObject("QATestSuite_Email_Textbox").clear();
+                logger.info(Util.CUName + " - Email Text Box is cleared");
+
+                getPhoneNo = getObject("PhoneNo_Txtbox").getAttribute("value").trim();
+                getObject("PhoneNo_Txtbox").clear();
+                logger.info(Util.CUName + " - PhoneNo Text Box is cleared");
+
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("QATestSuite_Save_Btn"))));
+                getObject("QATestSuite_Save_Btn").click();
+                logger.info(Util.CUName + " - Save button is clicked");
+
+                logger.info(Util.CUName + " - Settings updated successfully message is displayed");
+
+                // WebTest Primary
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("WebTestPrimary_Btn"))));
+                getObject("WebTestPrimary_Btn").click();
+                logger.info(Util.CUName + " - WEB Test - Primary button is clicked");
+
+                spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
+                Util.waitForSeconds(2);
+                
+                if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
+                        int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
+                        if (redalertfailtxt != 0) {
+                            String RedAlertText = getObject("Red_Alert_FailText").getText();
+                            logger.info(Util.CUName + " - Web test primary is not loaded and red alert message is shown");
+                            logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
+                            Util.takeScreenShot("PrimaryWebTestRedAlert");
+                            softassert.assertTrue(false, Util.CUName + "Web test primary is not loaded and red alert message is shown");
+                        }
+				}
+                else if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
+                	
+                    logger.info(Util.CUName + " - Member View Tab is active");
+                    WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
+                  
+                    driver.switchTo().frame(FrameWindow);
+      
+                    waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Loanlandingpagevalidation"))));
+                    String Loanapplicationlandingpage = getObject("Loanlandingpagevalidation").getText(); 
+                    logger.info(Util.CUName + " - Web test Primary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);           
+                    softassert.assertTrue(true, "Web test Primary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);
+               
+                    waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("loanpageCheckbox"))));
+                    getObject("loanpageCheckbox").click();
+                    logger.info(Util.CUName + " - Web test Primary : The loan application form check box is clicked successfully...");
+                    
+                    waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("BeginApplicationbutton"))));
+                    getObject("BeginApplicationbutton").click();
+                    logger.info(Util.CUName + " - Web test Primary : The Begin Application button is clicked successfully...");
+                    
+                    boolean FraudcontrolCheck = driver.getPageSource().contains("Fraud Control");                                                
+                  
+                    if (FraudcontrolCheck) { 
+                    String FCtextCheck = getObject("LoanFraudcontrolText").getText();
+                    logger.info(Util.CUName + " - Web test Primary : The Fraud control page is displayed and the title is : " + FCtextCheck);
+                    Util.takeScreenShot("maintenancepage");
+                    softassert.assertTrue(true, "Web test Primary : The Fraud control page is displayed and the title is : " + FCtextCheck);
+               
+                } else {               	
+                	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Title"))));
+                	String attribute = driver.findElement(By.xpath(OR.getProperty("Title"))).getText();
+                	logger.info(Util.CUName + "- Web test Primary : The Fraud control page is not displayed and the displayed page is : " + attribute);                
+                }
+                driver.switchTo().defaultContent();
+				}
+            }
+
+            // WebTest Secondary
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Setup_Tab"))));
+            getObject("Setup_Tab").click();
+            logger.info(Util.CUName + " - Setup tab is clicked in QA test suite page");
+
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("WebTestSec_Btn"))));
+            getObject("WebTestSec_Btn").click();
+            logger.info(Util.CUName + " - WEB Test - Secondary button is clicked");
+            spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
+            Util.waitForSeconds(2);
+            
+            if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
+                int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
+                if (redalertfailtxt != 0) {
+                    String RedAlertText = getObject("Red_Alert_FailText").getText();
+                    logger.info(Util.CUName + " - Web test secondary is not loaded and red alert message is shown");
+                    logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
+                    Util.takeScreenShot("PrimaryWebTestRedAlert");
+                    softassert.assertTrue(false, Util.CUName + "Web test secondary is not loaded and red alert message is shown");
+                }
+		}
+            else if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {            	
+                logger.info(Util.CUName + " - Member View Tab is active");
+                WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
+
+                 driver.switchTo().frame(FrameWindow);
+                 
+                 waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Loanlandingpagevalidation"))));
+                 String Loanapplicationlandingpage = getObject("Loanlandingpagevalidation").getText(); 
+                 logger.info(Util.CUName + " - Web test Secondary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);
+                 softassert.assertTrue(true, "Web test Secondary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);
+            
+                 waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("loanpageCheckbox"))));
+                 getObject("loanpageCheckbox").click();
+                 logger.info(Util.CUName + " - Web test Secondary : The loan application form check box is clicked successfully...");
+                 
+                 waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("BeginApplicationbutton"))));
+                 getObject("BeginApplicationbutton").click();
+                 logger.info(Util.CUName + " - Web test Secondary : The Begin Application button is clicked successfully...");
+                                          
+                         boolean FraudcontrolCheck = driver.getPageSource().contains("Fraud Control");                                                
+                       
+                         if (FraudcontrolCheck) { 
+                         String FCtext = getObject("LoanFraudcontrolText").getText();
+                         logger.info(Util.CUName + " - Web test Secondary : The Fraud control page is displayed and the title is : " + FCtext);
+                         Util.takeScreenShot("maintenancepage");
+                         softassert.assertTrue(true, "Web test Secondary : The Fraud control page is displayed and the title is : " + FCtext);
+                    
+                     } else {
+                     	
+                    		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Title"))));
+                        	String attribute = driver.findElement(By.xpath(OR.getProperty("Title"))).getText();
+                        	logger.info(Util.CUName + "- Web test Secondary : The Fraud control page is not displayed and the displayed page is : " + attribute);                       
+                     }
+			}
+
+            driver.switchTo().defaultContent();
+
+         QATestSuitePageFunctions.RevertEmailandFundoptions();
+
+          waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+		getObject("Home_Breadcrumb_link").click();
+            logger.info(Util.CUName + " - Web Test Primary and Secondary for Fraud control have been validated.");
+      		logger.info(Util.CUName + " - Switched back to home page.");
+    		
+        } catch (Exception e) {
+            Util.takeScreenShot("QATestSuiteFieldCheck");
+            logger.error(Util.CUName + " - QA test suite page is not displayed");
+           QATestSuitePageFunctions.RevertEmailandFundoptions();
+            Assert.assertTrue(false, Util.CUName + "QA test suite page is not displayed");
+        }
+    }
+
+    
+    public static void WebTestPrimarySecondaryMaskwaitValidation() throws Exception, InterruptedException, IOException {
+        SoftAssert softassert = new SoftAssert();
+
+        boolean FundYesRadioBtn = false;
+
+        try {
+            WebDriverWait spinnerwait = new WebDriverWait(driver, 120);
+            WebDriverWait waite = new WebDriverWait(driver, 90);
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("QATestSuite_Link"))));
+            getObject("QATestSuite_Link").click();
+            Util.waitForSeconds(2);
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Index_Text"))));
+
+            if (driver.getCurrentUrl().contains("SSOTestSetup")) {
+                logger.info(Util.CUName + " - QA Test Suite - SetUp tab is enabled");
+
+                WebElement radioElement = driver.findElement(By.id("FundYes"));
+                FundYesRadioBtn = radioElement.isSelected();
+
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Fund_No_Radiobtn"))));
+                getObject("Fund_No_Radiobtn").click();
+                logger.info(Util.CUName + " - Fund No Radio button is clicked");
+                Util.waitForSeconds(2);
+
+                if (Util.CUName.equals("TEXAS PLAINS FCU")) {
+                    BaseAccountID = getObject("BaseAccount_Txtbox").getAttribute("value").trim();
+                    logger.info(Util.CUName + " - " + BaseAccountID);
+                    Util.takeScreenShot("QATestSuite-OriginalBaseAccountID");
+
+                    getObject("BaseAccount_Txtbox").clear();
+                    logger.info(Util.CUName + " - BaseAccount ID is cleared");
+                    Util.waitForSeconds(2);
+                    String BaseAcctobeTested = CONFIG.getProperty("TexasBaseAccIDtobetested");
+                    logger.info(Util.CUName + " - " + BaseAcctobeTested);
+                    getObject("BaseAccount_Txtbox").sendKeys(BaseAcctobeTested);
+                } else {
+                    logger.info(Util.CUName + " - BaseAccount ID is not modified");
+                }
+
+                EmailText = getObject("QATestSuite_Email_Textbox").getAttribute("value").trim();
+                getObject("QATestSuite_Email_Textbox").clear();
+                logger.info(Util.CUName + " - Email Text Box is cleared");
+
+                getPhoneNo = getObject("PhoneNo_Txtbox").getAttribute("value").trim();
+                getObject("PhoneNo_Txtbox").clear();
+                logger.info(Util.CUName + " - PhoneNo Text Box is cleared");
+
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("QATestSuite_Save_Btn"))));
+                getObject("QATestSuite_Save_Btn").click();
+                logger.info(Util.CUName + " - Save button is clicked");
+
+                logger.info(Util.CUName + " - Settings updated successfully message is displayed");
+
+                // Webtest primary
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("WebTestPrimary_Btn"))));
+                getObject("WebTestPrimary_Btn").click();
+                logger.info(Util.CUName + " - WEB Test - Primary button is clicked");
+
+                spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
+                Util.waitForSeconds(2);
+                
+                if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
+                        int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
+                        if (redalertfailtxt != 0) {
+                            String RedAlertText = getObject("Red_Alert_FailText").getText();
+                            logger.info(Util.CUName + " - Web test primary is not loaded and red alert message is shown");
+                            logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
+                            Util.takeScreenShot("PrimaryWebTestRedAlert");
+                            softassert.assertTrue(false, Util.CUName + "Web test primary is not loaded and red alert message is shown");
+                        }
+				}
+                else if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
+                	
+                    logger.info(Util.CUName + " - Member View Tab is active");
+                    WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
+                    driver.switchTo().frame(FrameWindow);
+                    boolean Maskwait = driver.getPageSource().contains("Welcome to ");                                                
+                  
+                    if (Maskwait) { 
+                    String Maskwaittextcheck = getObject("MaskWelcomepage").getText();
+                    logger.info(Util.CUName + " - Web test Primary : The Mask wait page is displayed and the title is : " + Maskwaittextcheck);
+                    Util.takeScreenShot("MaskWelcomepage");
+                    softassert.assertTrue(true, "Web test Primary : The Mask wait page is displayed and the title is : " + Maskwaittextcheck);
+               
+                } else {               	
+                	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Title"))));
+                	String attribute = driver.findElement(By.xpath(OR.getProperty("Title"))).getText();
+                	logger.info(Util.CUName + "- Web test Primary : The Mask wait page is not displayed and the displayed page is : " + attribute);                
+                }
+                driver.switchTo().defaultContent();
+				}
+            }
+
+            // Web test secondary
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Setup_Tab"))));
+            getObject("Setup_Tab").click();
+            logger.info(Util.CUName + " - Setup tab is clicked in QA test suite page");
+
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("WebTestSec_Btn"))));
+            getObject("WebTestSec_Btn").click();
+            logger.info(Util.CUName + " - WEB Test - Secondary button is clicked");
+            
+            spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
+            Util.waitForSeconds(2);
+            
+            if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
+                    int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
+                    if (redalertfailtxt != 0) {
+                        String RedAlertText = getObject("Red_Alert_FailText").getText();
+                        logger.info(Util.CUName + " - Web test Secondary is not loaded and red alert message is shown");
+                        logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
+                        Util.takeScreenShot("PrimaryWebTestRedAlert");
+                        softassert.assertTrue(false, Util.CUName + "Web test Secondary is not loaded and red alert message is shown");
+                    }
+			}
+            else if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
+            	
+                logger.info(Util.CUName + " - Member View Tab is active");
+                WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
+                driver.switchTo().frame(FrameWindow);
+                boolean Maskwait = driver.getPageSource().contains("Welcome to ");                                                
+              
+                if (Maskwait) { 
+                String Maskwaittextcheck = getObject("MaskWelcomepage").getText();
+                logger.info(Util.CUName + " - Web test Secondary : The Mask wait page is displayed and the title is : " + Maskwaittextcheck);
+                Util.takeScreenShot("MaskWelcomepage");
+                softassert.assertTrue(true, "Web test Secondary : The Mask wait page is displayed and the title is : " + Maskwaittextcheck);
+           
+            } else {               	
+            	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Title"))));
+            	String attribute = driver.findElement(By.xpath(OR.getProperty("Title"))).getText();
+            	logger.info(Util.CUName + "- Web test Secondary : The Mask wait page is not displayed and the displayed page is : " + attribute);                
+            }
+            }
+            driver.switchTo().defaultContent();
+
+         QATestSuitePageFunctions.RevertEmailandFundoptions();
+
+          waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+		getObject("Home_Breadcrumb_link").click();
+            logger.info(Util.CUName + " - Web Test Primary and Secondary have been validated.");
+            
+    		logger.info(Util.CUName + " - switched to home page.");
+    		
+        } catch (Exception e) {
+            Util.takeScreenShot("QATestSuiteFieldCheck");
+            logger.error(Util.CUName + " - QA test suite page is not displayed");
+
+           QATestSuitePageFunctions.RevertEmailandFundoptions();
+
+            Assert.assertTrue(false, Util.CUName + "QA test suite page is not displayed");
+        }
+    }
+
+    
+    public static void WebTestPrimarySecondaryAANValidation() throws Exception, InterruptedException, IOException {
+        SoftAssert softassert = new SoftAssert();
+
+        boolean FundYesRadioBtn = false;
+
+        try {
+            WebDriverWait spinnerwait = new WebDriverWait(driver, 120);
+            WebDriverWait waite = new WebDriverWait(driver, 90);
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("QATestSuite_Link"))));
+            getObject("QATestSuite_Link").click();
+            Util.waitForSeconds(2);
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Index_Text"))));
+
+            if (driver.getCurrentUrl().contains("SSOTestSetup")) {
+                logger.info(Util.CUName + " - QA Test Suite - SetUp tab is enabled");
+
+                WebElement radioElement = driver.findElement(By.id("FundYes"));
+                FundYesRadioBtn = radioElement.isSelected();
+
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Fund_No_Radiobtn"))));
+                getObject("Fund_No_Radiobtn").click();
+                logger.info(Util.CUName + " - Fund No Radio button is clicked");
+                Util.waitForSeconds(2);
+
+                if (Util.CUName.equals("TEXAS PLAINS FCU")) {
+                    BaseAccountID = getObject("BaseAccount_Txtbox").getAttribute("value").trim();
+                    logger.info(Util.CUName + " - " + BaseAccountID);
+                    Util.takeScreenShot("QATestSuite-OriginalBaseAccountID");
+
+                    getObject("BaseAccount_Txtbox").clear();
+                    logger.info(Util.CUName + " - BaseAccount ID is cleared");
+                    Util.waitForSeconds(2);
+                    String BaseAcctobeTested = CONFIG.getProperty("TexasBaseAccIDtobetested");
+                    logger.info(Util.CUName + " - " + BaseAcctobeTested);
+                    getObject("BaseAccount_Txtbox").sendKeys(BaseAcctobeTested);
+                } else {
+                    logger.info(Util.CUName + " - BaseAccount ID is not modified");
+                }
+
+                EmailText = getObject("QATestSuite_Email_Textbox").getAttribute("value").trim();
+                getObject("QATestSuite_Email_Textbox").clear();
+                logger.info(Util.CUName + " - Email Text Box is cleared");
+
+                getPhoneNo = getObject("PhoneNo_Txtbox").getAttribute("value").trim();
+                getObject("PhoneNo_Txtbox").clear();
+                logger.info(Util.CUName + " - PhoneNo Text Box is cleared");
+
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("QATestSuite_Save_Btn"))));
+                getObject("QATestSuite_Save_Btn").click();
+                logger.info(Util.CUName + " - Save button is clicked");
+
+                logger.info(Util.CUName + " - Settings updated successfully message is displayed");
+
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("WebTestPrimary_Btn"))));
+                getObject("WebTestPrimary_Btn").click();
+                logger.info(Util.CUName + " - WEB Test - Primary button is clicked");
+
+                spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
+                Util.waitForSeconds(2);
+                
+                if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
+                        int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
+                        if (redalertfailtxt != 0) {
+                            String RedAlertText = getObject("Red_Alert_FailText").getText();
+                            logger.info(Util.CUName + " - Web test primary is not loaded and red alert message is shown");
+                            logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
+                            Util.takeScreenShot("PrimaryWebTestRedAlert");
+                            softassert.assertTrue(false, Util.CUName + "Web test primary is not loaded and red alert message is shown");
+                        }
+				}
+                else if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
+                	
+                    logger.info(Util.CUName + " - Member View Tab is active");
+                    WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
+                  
+                    driver.switchTo().frame(FrameWindow);
+      
+                    waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Loanapplicationlandingpage"))));
+                    String Loanapplicationlandingpage = getObject("Loanapplicationlandingpage").getText(); 
+                    logger.info(Util.CUName + " - Web test Primary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);           
+                    softassert.assertTrue(true, "Web test Primary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);
+               
+                    waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("loanpageCheckbox"))));
+                    getObject("loanpageCheckbox").click();
+                    logger.info(Util.CUName + " - Web test Primary : The loan application form check box is clicked successfully...");
+                    
+                    waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("BeginApplicationbutton"))));
+                    getObject("BeginApplicationbutton").click();
+                    logger.info(Util.CUName + " - Web test Primary : The Begin Application button is clicked successfully...");
+                    
+                    boolean AANcheck = driver.getPageSource().contains("Adverse");                                                
+                  
+                    if (AANcheck) { 
+                    String aanText = getObject("AANReason").getText();
+                    logger.info(Util.CUName + " - Web test Primary : The AAN page is displayed and the title is : " + aanText);
+                    Util.takeScreenShot("AANReason");
+                    softassert.assertTrue(true, "Web test Primary : The AAN page is displayed and the title is : " + aanText);
+               
+                } else {               	
+                	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Title"))));
+                	String attribute = driver.findElement(By.xpath(OR.getProperty("Title"))).getText();
+                	logger.info(Util.CUName + "- Web test Primary : The AAN page is not displayed and the displayed page is : " + attribute);                
+                }
+                driver.switchTo().defaultContent();
+				}
+            }
+
+            // Web test secondary
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Setup_Tab"))));
+            getObject("Setup_Tab").click();
+            logger.info(Util.CUName + " - Setup tab is clicked in QA test suite page");
+
+            waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("WebTestSec_Btn"))));
+            getObject("WebTestSec_Btn").click();
+            logger.info(Util.CUName + " - WEB Test - Secondary button is clicked");
+          
+            spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
+            Util.waitForSeconds(2);
+            
+            if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
+                    int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
+                    if (redalertfailtxt != 0) {
+                        String RedAlertText = getObject("Red_Alert_FailText").getText();
+                        logger.info(Util.CUName + " - Web test secondary is not loaded and red alert message is shown");
+                        logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
+                        Util.takeScreenShot("PrimaryWebTestRedAlert");
+                        softassert.assertTrue(false, Util.CUName + "Web test secondary is not loaded and red alert message is shown");
+                    }
+			}
+            else if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
+            	
+                logger.info(Util.CUName + " - Member View Tab is active");
+                WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
+              
+                driver.switchTo().frame(FrameWindow);
+  
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Loanapplicationlandingpage"))));
+                String Loanapplicationlandingpage = getObject("Loanapplicationlandingpage").getText(); 
+                logger.info(Util.CUName + " - Web test Secondary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);           
+                softassert.assertTrue(true, "Web test Secondary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);
+           
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("loanpageCheckbox"))));
+                getObject("loanpageCheckbox").click();
+                logger.info(Util.CUName + " - Web test Secondary : The loan application form check box is clicked successfully...");
+                
+                waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("BeginApplicationbutton"))));
+                getObject("BeginApplicationbutton").click();
+                logger.info(Util.CUName + " - Web test Secondary : The Begin Application button is clicked successfully...");
+                
+                boolean AANcheck = driver.getPageSource().contains("Adverse");                                                
+              
+                if (AANcheck) { 
+                String aanText = getObject("AANReason").getText();
+                logger.info(Util.CUName + " - Web test Secondary : The AAN page is displayed and the title is : " + aanText);
+                Util.takeScreenShot("AANReason");
+                softassert.assertTrue(true, "Web test Secondary : The AAN page is displayed and the title is : " + aanText);
+           
+            } else {               	
+            	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Title"))));
+            	String attribute = driver.findElement(By.xpath(OR.getProperty("Title"))).getText();
+            	logger.info(Util.CUName + "- Web test Secondary : The AAN page is not displayed and the displayed page is : " + attribute);                
+            }
+            }
+            driver.switchTo().defaultContent();
+
+         QATestSuitePageFunctions.RevertEmailandFundoptions();
+
+          waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+		getObject("Home_Breadcrumb_link").click();
+            logger.info(Util.CUName + " - Web Test Primary and Secondary have been validated.");
+
+
+            
+    		logger.info(Util.CUName + " - switched to home page.");
+        
+    		
+        } catch (Exception e) {
+            Util.takeScreenShot("QATestSuiteFieldCheck");
+            logger.error(Util.CUName + " - QA test suite page is not displayed");
+
+           QATestSuitePageFunctions.RevertEmailandFundoptions();
+
+            Assert.assertTrue(false, Util.CUName + "QA test suite page is not displayed");
+        }
+    }
+
+    public static void LoanlaunchandFundingComplete() throws InterruptedException, IOException, Exception {
+	
+    	 SoftAssert softassert = new SoftAssert();
+
+         boolean FundYesRadioBtn = false;
+
+         try {
+             WebDriverWait spinnerwait = new WebDriverWait(driver, 120);
+             WebDriverWait waite = new WebDriverWait(driver, 90);
+             waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("QATestSuite_Link"))));
+             getObject("QATestSuite_Link").click();
+             Util.waitForSeconds(2);
+             waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Index_Text"))));
+
+             if (driver.getCurrentUrl().contains("SSOTestSetup")) {
+                 logger.info(Util.CUName + " - QA Test Suite - SetUp tab is enabled");
+
+                 WebElement radioElement = driver.findElement(By.id("FundYes"));
+                 FundYesRadioBtn = radioElement.isSelected();
+
+                 waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Fund_No_Radiobtn"))));
+                 getObject("Fund_No_Radiobtn").click();
+                 logger.info(Util.CUName + " - Fund No Radio button is clicked");
+                 Util.waitForSeconds(2);
+
+                 if (Util.CUName.equals("TEXAS PLAINS FCU")) {
+                     BaseAccountID = getObject("BaseAccount_Txtbox").getAttribute("value").trim();
+                     logger.info(Util.CUName + " - " + BaseAccountID);
+                     Util.takeScreenShot("QATestSuite-OriginalBaseAccountID");
+
+                     getObject("BaseAccount_Txtbox").clear();
+                     logger.info(Util.CUName + " - BaseAccount ID is cleared");
+                     Util.waitForSeconds(2);
+                     String BaseAcctobeTested = CONFIG.getProperty("TexasBaseAccIDtobetested");
+                     logger.info(Util.CUName + " - " + BaseAcctobeTested);
+                     getObject("BaseAccount_Txtbox").sendKeys(BaseAcctobeTested);
+                 } else {
+                     logger.info(Util.CUName + " - BaseAccount ID is not modified");
+                 }
+
+                 EmailText = getObject("QATestSuite_Email_Textbox").getAttribute("value").trim();
+                 getObject("QATestSuite_Email_Textbox").clear();
+                 logger.info(Util.CUName + " - Email Text Box is cleared");
+
+                 getPhoneNo = getObject("PhoneNo_Txtbox").getAttribute("value").trim();
+                 getObject("PhoneNo_Txtbox").clear();
+                 logger.info(Util.CUName + " - PhoneNo Text Box is cleared");
+
+                 waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("QATestSuite_Save_Btn"))));
+                 getObject("QATestSuite_Save_Btn").click();
+                 logger.info(Util.CUName + " - Save button is clicked");
+
+                 logger.info(Util.CUName + " - Settings updated successfully message is displayed");
+
+                 waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("WebTestPrimary_Btn"))));
+                 getObject("WebTestPrimary_Btn").click();
+                 logger.info(Util.CUName + " - WEB Test - Primary button is clicked");
+
+                 spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
+                 Util.waitForSeconds(2);
+                 
+                 if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
+                         int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
+                         if (redalertfailtxt != 0) {
+                             String RedAlertText = getObject("Red_Alert_FailText").getText();
+                             logger.info(Util.CUName + " - Web test primary is not loaded and red alert message is shown");
+                             logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
+                             Util.takeScreenShot("PrimaryWebTestRedAlert");
+                             softassert.assertTrue(false, Util.CUName + "Web test primary is not loaded and red alert message is shown");
+                         }
+ 				}
+                 else if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
+                 	
+                     logger.info(Util.CUName + " - Member View Tab is active");
+                     WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
+                   
+                     driver.switchTo().frame(FrameWindow);
+       
+                     waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Loanapplicationlandingpage"))));
+                     String Loanapplicationlandingpage = getObject("Loanapplicationlandingpage").getText(); 
+                     logger.info(Util.CUName + " - Web test Primary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);           
+                     softassert.assertTrue(true, "Web test Primary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);
+                
+                     waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("loanpageCheckbox"))));
+                     getObject("loanpageCheckbox").click();
+                     logger.info(Util.CUName + " - Web test Primary : The loan application form check box is clicked successfully...");
+                     
+                     waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("BeginApplicationbutton"))));
+                     getObject("BeginApplicationbutton").click();
+                     logger.info(Util.CUName + " - Web test Primary : The Begin Application button is clicked successfully...");
+                     
+                     boolean AANcheck = driver.getPageSource().contains("Adverse");                                                
+                   
+                     if (AANcheck) { 
+                     String aanText = getObject("AANReason").getText();
+                     logger.info(Util.CUName + " - Web test Primary : The AAN page is displayed and the title is : " + aanText);
+                     Util.takeScreenShot("AANReason");
+                     softassert.assertTrue(true, "Web test Primary : The AAN page is displayed and the title is : " + aanText);
+                
+                  
+                 } else {               	
+                 	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Title"))));
+                 	String attribute = driver.findElement(By.xpath(OR.getProperty("Title"))).getText();
+                 	logger.info(Util.CUName + "- Web test Primary : The AAN page is not displayed and the displayed page is : " + attribute);                
+                 	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("listedproduct"))));
+                 	getObject("listedproduct").click();
+                 	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("SubmitButton"))));
+                 	getObject("SubmitButton").click();
+             
+                 	
+                 	String disclosure = getObject("LoanDisclosureText").getText();
+                    logger.info(Util.CUName + " - Web test Primary : The Loan disclosure page is displayed and the title is : " + disclosure);
+                    Util.takeScreenShot("AANReason");
+                    softassert.assertTrue(true, "Web test Primary : The Loan disclosure page is displayed and the title is : " + disclosure);
+                    waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanDisclosureCheckbox"))));
+                 	getObject("LoanDisclosureCheckbox").click();
+                 	 waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanDiscosureSubmit"))));
+                  	getObject("LoanDiscosureSubmit").click();
+                  	
+                	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("FundingCompleteText"))));
+                 	String fundingtxt = driver.findElement(By.xpath(OR.getProperty("FundingCompleteText"))).getText();
+                 	logger.info(Util.CUName + "- Web test Primary : The Funding complete page is displayed and the page Title is : " + fundingtxt); 
+                 
+                 }
+                 driver.switchTo().defaultContent();
+ 				}
+             }
+
+             // Web test secondary
+             waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Setup_Tab"))));
+             getObject("Setup_Tab").click();
+             logger.info(Util.CUName + " - Setup tab is clicked in QA test suite page");
+
+             waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("WebTestSec_Btn"))));
+             getObject("WebTestSec_Btn").click();
+             logger.info(Util.CUName + " - WEB Test - Secondary button is clicked");
+           
+             spinnerwait.until(ExpectedConditions.invisibilityOf(getObject("SSO_Spinner")));
+             Util.waitForSeconds(2);
+             
+             if (getObject("Setup_Tab").getAttribute("class").contains("is-active")) {
+                     int redalertfailtxt = driver.findElements(By.xpath(OR.getProperty("Red_Alert_FailText"))).size();
+                     if (redalertfailtxt != 0) {
+                         String RedAlertText = getObject("Red_Alert_FailText").getText();
+                         logger.info(Util.CUName + " - Web test secondary is not loaded and red alert message is shown");
+                         logger.info(Util.CUName + " - Red Alert Message is : " + RedAlertText);
+                         Util.takeScreenShot("PrimaryWebTestRedAlert");
+                         softassert.assertTrue(false, Util.CUName + "Web test secondary is not loaded and red alert message is shown");
+                     }
+ 			}
+             else if (getObject("MemberView_Tab").getAttribute("class").contains("is-active")) {
+             	
+                 logger.info(Util.CUName + " - Member View Tab is active");
+                 WebElement FrameWindow = driver.findElement(By.xpath(OR.getProperty("frameContent")));
+               
+                 driver.switchTo().frame(FrameWindow);
+   
+                 waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Loanapplicationlandingpage"))));
+                 String Loanapplicationlandingpage = getObject("Loanapplicationlandingpage").getText(); 
+                 logger.info(Util.CUName + " - Web test Secondary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);           
+                 softassert.assertTrue(true, "Web test Secondary : The loan application form is displayed successfully..." + Loanapplicationlandingpage);
+            
+                 waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("loanpageCheckbox"))));
+                 getObject("loanpageCheckbox").click();
+                 logger.info(Util.CUName + " - Web test Secondary : The loan application form check box is clicked successfully...");
+                 
+                 waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("BeginApplicationbutton"))));
+                 getObject("BeginApplicationbutton").click();
+                 logger.info(Util.CUName + " - Web test Secondary : The Begin Application button is clicked successfully...");
+                 
+                 boolean AANcheck = driver.getPageSource().contains("Adverse");                                                
+               
+                 if (AANcheck) { 
+                 String aanText = getObject("AANReason").getText();
+                 logger.info(Util.CUName + " - Web test Secondary : The AAN page is displayed and the title is : " + aanText);
+                 Util.takeScreenShot("AANReason");
+                 softassert.assertTrue(true, "Web test Secondary : The AAN page is displayed and the title is : " + aanText);
+            
+             } else {               	
+             	waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Title"))));
+             	String attribute = driver.findElement(By.xpath(OR.getProperty("Title"))).getText();
+             	logger.info(Util.CUName + "- Web test Secondary : The AAN page is not displayed and the displayed page is : " + attribute);                
+             }
+             }
+             driver.switchTo().defaultContent();
+
+          QATestSuitePageFunctions.RevertEmailandFundoptions();
+
+           waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+ 		getObject("Home_Breadcrumb_link").click();
+             logger.info(Util.CUName + " - Web Test Primary and Secondary have been validated.");
+
+
+             
+     		logger.info(Util.CUName + " - switched to home page.");
+         
+     		
+         } catch (Exception e) {
+             Util.takeScreenShot("QATestSuiteFieldCheck");
+             logger.error(Util.CUName + " - QA test suite page is not displayed");
+
+            QATestSuitePageFunctions.RevertEmailandFundoptions();
+
+             Assert.assertTrue(false, Util.CUName + "QA test suite page is not displayed");
+         }
+     
+
+	}
+    
     
 }

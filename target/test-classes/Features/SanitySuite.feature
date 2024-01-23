@@ -7,19 +7,40 @@ Feature: Qcash Application : Loan Application Flow Sanity Validation
   Given Launch the FI "<sitename>" site "<url>" urls
   Given Enter the valid user credentials "<username>" and "<password>" to access the application
   
-  #Maintenance Page
-  Then From the application dashboard page select the manage fi configuration menu link
-  When Click on the loan application menu link
-  And Set the maintenance to active or inactive and save the page
-  Then Nagivate back to the application dashboard page and select the QA Test suite page
   
-  #Loan application launch
-  Then Click on the web test primary and secondary and verify the manintenance page 
-    
+  #Maintenance Page
+  #Then Validate the loan application workflow when the Maintenance page is set to Active
+  #And Validate the loan application workflow when the Maintenance page is set to InActive
+    #
+  #Awareness Page 
+  #Then Set the Awareness page to Activate and verify the loan application flow
+  #And Set the Awareness page to InActivate and verify the loan application flow
+      #
+  #FraudControl
+  #Then Set the Fraud Control to Activate and verify the loan application flow
+  #And Set the Fraud Control to InActivate and verify the loan application flow
+  #
+  #Mask Initiate Wait Time
+  #Then Set the Mask Initiate Wait Time to Active and verify the loan application flow
+  #And Set the Mask Initiate Wait Time to InActive and verify the loan application flow
+    #
+  #AAN
+  #Then Set the Deny for Max Open Loans Across Products to Active and verify the loan application flow
+  #And Set the Deny for Max Open Loans Across Products to InActive and verify the loan application flow
+  #
+  
+  #Loan Application Launch and Funding complete
+  #Then Launch the loan application, complete the loan process, and verify the funding complete status.
+  
+  #Loan Exclusion
+  Then Set the Denial Exclusion to Active and verify the loan application flow
+  And Set the Denial Exclusion to InActive and verify the loan application flow
+  
+  
    Examples:
     
 	| sitename   						|| url							 			 		                     			|  
-	| 4Fornt						   	||  https://testadmin.q-cash.com/4frontcu/login   		|
+	| Vibe Credit Union						   	||  https://testadmin.q-cash.com/vibecu/Authentication/Login   		|
 	#| PVFCU 						    	||  https://testadmin.q-cash.com/pvfcu/Authentication/Login			      |
 
 

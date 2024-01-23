@@ -1,0 +1,84 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "line": 38,
+        "name": "Validate the Loan application flow for the CU",
+        "description": "",
+        "id": "qcash-application-:-loan-application-flow-sanity-validation;validate-the-loan-application-flow-for-the-cu;;2",
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 5764437600,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "Launch the FI \"Vibe Credit Union\" site \"https://testadmin.q-cash.com/vibecu/Authentication/Login\" urls",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"Vibe Credit Union\"",
+                  "offset": 14
+                },
+                {
+                  "val": "\"https://testadmin.q-cash.com/vibecu/Authentication/Login\"",
+                  "offset": 39
+                }
+              ],
+              "location": "SanitySuite_StepDefinition.Launch_the_FI_site_urls(String,String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 45214725400,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Enter the valid user credentials \"\u003cusername\u003e\" and \"\u003cpassword\u003e\" to access the application",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"\u003cusername\u003e\"",
+                  "offset": 33
+                },
+                {
+                  "val": "\"\u003cpassword\u003e\"",
+                  "offset": 50
+                }
+              ],
+              "location": "SanitySuite_StepDefinition.enter_the_valid_user_credentials_and_to_access_the_application(String,String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 73148169000,
+              "status": "passed"
+            },
+            "line": 33,
+            "name": "Launch the loan application, complete the loan process, and verify the funding complete status.",
+            "match": {
+              "location": "SanitySuite_StepDefinition.launch_the_loan_application_complete_the_loan_process_and_verify_the_funding_complete_status()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@SanityCheck"
+          }
+        ]
+      }
+    ],
+    "name": "Qcash Application : Loan Application Flow Sanity Validation",
+    "description": "",
+    "id": "qcash-application-:-loan-application-flow-sanity-validation",
+    "keyword": "Feature",
+    "uri": "src/test/java/Features/SanitySuite.feature",
+    "tags": []
+  }
+]

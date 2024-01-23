@@ -4,14 +4,12 @@ Feature: Qcash Application : Loan Application Flow Sanity Validation
   Scenario Outline: Validate the Loan application flow for the CU # src/test/java/Features/SanitySuite.feature:4
     Given Launch the FI "<sitename>" site "<url>" urls
     Given Enter the valid user credentials "<username>" and "<password>" to access the application
-    Then From the application dashboard page select the manage fi configuration menu link
-    When Click on the loan application menu link
-    And Set the maintenance to active or inactive and save the page
-    Then Nagivate back to the application dashboard page and select the QA Test suite page
-    Then Click on the web test primary and secondary and verify the manintenance page
+    Then Launch the loan application, complete the loan process, and verify the funding complete status.
 
     Examples: 
 
   @SanityCheck
-  Scenario Outline: Validate the Loan application flow for the CU                                  # src/test/java/Features/SanitySuite.feature:22
-    Given Launch the FI "4Fornt" site "https://testadmin.q-cash.com/4frontcu/login" urls           # SanitySuite_StepDefinition.Launch_the_FI_site_urls(String,String)
+  Scenario Outline: Validate the Loan application flow for the CU                                                # src/test/java/Features/SanitySuite.feature:38
+    Given Launch the FI "Vibe Credit Union" site "https://testadmin.q-cash.com/vibecu/Authentication/Login" urls # SanitySuite_StepDefinition.Launch_the_FI_site_urls(String,String)
+    Given Enter the valid user credentials "<username>" and "<password>" to access the application               # SanitySuite_StepDefinition.enter_the_valid_user_credentials_and_to_access_the_application(String,String)
+    Then Launch the loan application, complete the loan process, and verify the funding complete status.         # SanitySuite_StepDefinition.launch_the_loan_application_complete_the_loan_process_and_verify_the_funding_complete_status()
