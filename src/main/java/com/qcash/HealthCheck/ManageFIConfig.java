@@ -24,6 +24,8 @@ public class ManageFIConfig extends TestBase {
 	public static String FraudControlSubmit ="";
 	public static String FarudControlCodevalidity ="";	
 	public static String Maxopenloanvalue ="";
+	public static String DeniedLoansThreshold ="";
+	public static String NumberofDenied ="";
 	
 
 	static Logger logger = LogManager.getLogger(ManageFIConfig.class);
@@ -542,5 +544,101 @@ public static void MaximumOpenloanInActive() {
 }
 
 
+public static void LoanExclusionActive() {
 	
+	try {
+		WebDriverWait waite = new WebDriverWait(driver, 120);
+		Util.waitForSeconds(5);
+		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanExclusion"))));
+		getObject("LoanExclusion").click();
+		logger.info(Util.CUName + " - The LoanExclusion page is displayed");
+
+	        WebElement active = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("DeniedExclusionActive"))));
+	        active.click();
+	        logger.info(Util.CUName + " - The LoanExclusion Active radio button is clicked"); 
+	        
+			
+	     // The NumberofDeniedLoanstext box value copied and cleared
+		    WebElement feebasedbox = driver.findElement(By.xpath(OR.getProperty("NumberofDeniedLoanstext")));
+		    NumberofDenied = getObject("NumberofDeniedLoanstext").getAttribute("value").trim();
+                getObject("NumberofDeniedLoanstext").clear();
+                logger.info(Util.CUName + " - The Denial exclusion page NumberofDeniedLoans text box is cleared");
+                feebasedbox.sendKeys("0");
+                
+          // The DeniedLoansThresholdtext box value copied and cleared
+		       WebElement interestbasedbox = driver.findElement(By.xpath(OR.getProperty("DeniedLoansThresholdtext")));
+		       DeniedLoansThreshold = getObject("DeniedLoansThresholdtext").getAttribute("value").trim();
+               getObject("DeniedLoansThresholdtext").clear();
+               logger.info(Util.CUName + " - The Denial exclusion page DeniedLoansThreshold text box is cleared");
+               interestbasedbox.sendKeys("0");
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("DeniedExclusionSave"))));
+				getObject("DeniedExclusionSave").click();
+				logger.info(Util.CUName + " - The Denial exclusion page is saved");
+				
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
+				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
+				Assert.assertTrue(true, "Validated sucess message");
+				
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+				getObject("Home_Breadcrumb_link").click();
+				logger.info(Util.CUName + " - Naviagted back to dashboard page");
+	
+			
+	} catch (Exception e) {
+		Util.takeScreenShot("LoanApp_Menu_Link");
+		logger.error(Util.CUName + " - Manage Fi Configuration page is not displayed");
+		Assert.assertTrue(false, "Manage Fi Configuration page is not displayed");
+	}
+}
+
+
+public static void LoanExclusionInActive() throws Exception, InterruptedException, IOException {
+	
+	
+	try {
+		WebDriverWait waite = new WebDriverWait(driver, 120);
+		Util.waitForSeconds(5);
+		waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanExclusion"))));
+		getObject("LoanExclusion").click();
+		logger.info(Util.CUName + " - The LoanExclusion page is displayed");
+
+	        WebElement active = waite.until(ExpectedConditions.elementToBeClickable(By.xpath(OR.getProperty("DeniedExclusionInActive"))));
+	        active.click();
+	        logger.info(Util.CUName + " - The LoanExclusion InActive radio button is clicked"); 
+	        
+			
+	     // The NumberofDeniedLoanstext box value copied and cleared
+		    WebElement feebasedbox = driver.findElement(By.xpath(OR.getProperty("NumberofDeniedLoanstext")));
+		    DeniedLoansThreshold = getObject("NumberofDeniedLoanstext").getAttribute("value").trim();
+                getObject("NumberofDeniedLoanstext").clear();
+                logger.info(Util.CUName + " - The DeniedExclusion page NumberofDenied Loans text box is cleared");
+                feebasedbox.sendKeys("0");
+                
+          // The DeniedLoansThresholdtext box value copied and cleared
+		       WebElement interestbasedbox = driver.findElement(By.xpath(OR.getProperty("DeniedLoansThresholdtext")));
+		       NumberofDenied = getObject("DeniedLoansThresholdtext").getAttribute("value").trim();
+               getObject("DeniedLoansThresholdtext").clear();
+               logger.info(Util.CUName + " - The LoanExclusion page DeniedLoansThreshold text box is cleared");
+               interestbasedbox.sendKeys("0");
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("DeniedExclusionSave"))));
+				getObject("DeniedExclusionSave").click();
+				logger.info(Util.CUName + " - The DeniedExclusion page is saved");
+				
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("LoanSuccessMessage"))));
+				Boolean display = getObject("LoanSuccessMessage").isDisplayed();
+				Assert.assertTrue(true, "Validated sucess message");
+				
+				waite.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OR.getProperty("Home_Breadcrumb_link"))));
+				getObject("Home_Breadcrumb_link").click();
+				logger.info(Util.CUName + " - Naviagted back to dashboard page");
+	
+			
+	} catch (Exception e) {
+		Util.takeScreenShot("LoanApp_Menu_Link");
+		logger.error(Util.CUName + " - Manage Fi Configuration page is not displayed");
+		Assert.assertTrue(false, "Manage Fi Configuration page is not displayed");
+	}
+}
+
+
 }

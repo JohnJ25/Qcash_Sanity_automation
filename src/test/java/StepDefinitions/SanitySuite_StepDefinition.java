@@ -220,12 +220,34 @@ public void launch_the_loan_application_complete_the_loan_process_and_verify_the
 
 @Then("Set the Denial Exclusion to Active and verify the loan application flow")
 public void set_the_Denial_Exclusion_to_Active_and_verify_the_loan_application_flow() {
+	
+	try{
+		   ManageFIConfig.manageFiConfig();
+		   ManageFIConfig.fIconfigLoanApplication();
+		   ManageFIConfig.LoanExclusionActive();
+		   QATestSuitePageFunctions.WebTestPrimarySecondaryLoanExclusionValidation();
+		
+	} catch (Exception e) {
+		Util.takeScreenShot("");
+		logger.error(Util.CUName + " - The LoanExclusion Page active setting is not working");
+		Assert.assertTrue(false, "The LoanExclusion page active setting is not working");
+	}
  
 }
 
 @Then("Set the Denial Exclusion to InActive and verify the loan application flow")
 public void set_the_Denial_Exclusion_to_InActive_and_verify_the_loan_application_flow() {
-    
+	try{
+		   ManageFIConfig.manageFiConfig();
+		   ManageFIConfig.fIconfigLoanApplication();
+		   ManageFIConfig.LoanExclusionInActive();
+		   QATestSuitePageFunctions.WebTestPrimarySecondaryLoanExclusionValidation();
+		
+	} catch (Exception e) {
+		Util.takeScreenShot("");
+		logger.error(Util.CUName + " - The LoanExclusion Page Inactive setting is not working");
+		Assert.assertTrue(false, "The LoanExclusion page Inactive setting is not working");
+	}
 }
 
 }

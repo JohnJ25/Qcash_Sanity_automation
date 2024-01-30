@@ -4,12 +4,11 @@ Feature: Qcash Application : Loan Application Flow Sanity Validation
   Scenario Outline: Validate the Loan application flow for the CU # src/test/java/Features/SanitySuite.feature:4
     Given Launch the FI "<sitename>" site "<url>" urls
     Given Enter the valid user credentials "<username>" and "<password>" to access the application
-    Then Launch the loan application, complete the loan process, and verify the funding complete status.
+    Then Set the Denial Exclusion to Active and verify the loan application flow
+    And Set the Denial Exclusion to InActive and verify the loan application flow
 
     Examples: 
 
   @SanityCheck
-  Scenario Outline: Validate the Loan application flow for the CU                                                # src/test/java/Features/SanitySuite.feature:38
+  Scenario Outline: Validate the Loan application flow for the CU                                                # src/test/java/Features/SanitySuite.feature:43
     Given Launch the FI "Vibe Credit Union" site "https://testadmin.q-cash.com/vibecu/Authentication/Login" urls # SanitySuite_StepDefinition.Launch_the_FI_site_urls(String,String)
-    Given Enter the valid user credentials "<username>" and "<password>" to access the application               # SanitySuite_StepDefinition.enter_the_valid_user_credentials_and_to_access_the_application(String,String)
-    Then Launch the loan application, complete the loan process, and verify the funding complete status.         # SanitySuite_StepDefinition.launch_the_loan_application_complete_the_loan_process_and_verify_the_funding_complete_status()
